@@ -24,6 +24,10 @@ config/name="MushroomsVSPigs"
 run/main_scene="res://SceneHandler.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameData="*res://Singletones/GameData.gd"
+
 [display]
 
 window/size/width=1280

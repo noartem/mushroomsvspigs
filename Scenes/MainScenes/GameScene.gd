@@ -3,29 +3,30 @@ extends Node2D
 
 var map_node
 var map_towers_node
+var map_tower_exclusion_node
 var ui_node
 
 var build_mode = false
 var build_valid = false
-var build_location = null
-var build_type = null
+var build_tile
+var build_location
+var build_type
 
 
 func init_build_mode(tower_type):
+	if build_mode:
+		cancel_build()
+
 	build_type = tower_type
 	build_mode = true
 	ui_node.set_tower_preview(tower_type, get_global_mouse_position())
 
 
 func update_tower_preview():
-	var map_tower_exclusion_node = map_node.get_node("TowerExclusion")
-
 	var mouse_position = get_global_mouse_position()
-	var current_tile = map_tower_exclusion_node.world_to_map(mouse_position)
-
-	build_location = map_tower_exclusion_node.map_to_world(current_tile)
-	build_valid = map_tower_exclusion_node.get_cellv(current_tile) == -1
-
+	build_tile = map_tower_exclusion_node.world_to_map(mouse_position)
+	build_location = map_tower_exclusion_node.map_to_world(build_tile)
+	build_valid = map_tower_exclusion_node.get_cellv(build_tile) == -1
 	ui_node.update_tower_preview(build_location, build_valid)
 
 
@@ -34,6 +35,7 @@ func verify_and_build():
 		var new_tower = load("res://Scenes/Turrets/" + build_type + ".tscn").instance()
 		new_tower.position = build_location
 		map_towers_node.add_child(new_tower, true)
+		map_tower_exclusion_node.set_cellv(build_tile, 5)
 
 
 func cancel_build():
@@ -47,6 +49,8 @@ func cancel_build():
 func _ready():
 	map_node = get_node("Map1")
 	map_towers_node = map_node.get_node("Towers")
+	map_tower_exclusion_node = map_node.get_node("TowerExclusion")
+	
 	ui_node = get_node("UI")
 
 	for build_btn in get_tree().get_nodes_in_group("build_buttons"):

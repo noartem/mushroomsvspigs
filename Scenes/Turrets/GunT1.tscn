@@ -6,6 +6,9 @@
 
 [node name="GunT1" type="Node2D"]
 script = ExtResource( 3 )
+turret_range = null
+turret_damage = null
+turret_rof = null
 
 [node name="Base" type="Sprite" parent="."]
 texture = ExtResource( 2 )
