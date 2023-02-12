@@ -1,6 +1,10 @@
 # WIP: Mushrooms VS Pigs
 
-## Assets used
+## Tutorials
+
+- [Tower Defense in Godot](https://www.youtube.com/playlist?list=PLZ-54sd-DMAJltIzTtZ6ZhC-9hkqYXyp6)
+
+## Assets
 
 - [Kenney Top-down Tanks Redux](https://kenney.nl/assets/topdown-tanks-redux)
 - [Kenney Tower Defense (top-down)](https://kenney.nl/assets/tower-defense-top-down)
