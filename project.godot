@@ -9,37 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "HBoxContainer",
-"class": "ContributorClass",
-"language": "GDScript",
-"path": "res://addons/github-integration/scripts/ContributorClass.gd"
-}, {
-"base": "PanelContainer",
-"class": "GistItem",
-"language": "GDScript",
-"path": "res://addons/github-integration/scripts/GistItem.gd"
-}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
-}, {
-"base": "HBoxContainer",
-"class": "InvitationItem",
-"language": "GDScript",
-"path": "res://addons/github-integration/scripts/InvitationItem.gd"
-}, {
-"base": "PanelContainer",
-"class": "RepositoryItem",
-"language": "GDScript",
-"path": "res://addons/github-integration/scripts/RepositoryItem.gd"
 } ]
 _global_script_class_icons={
-"ContributorClass": "",
-"GistItem": "",
-"GitAPI": "",
-"InvitationItem": "",
-"RepositoryItem": ""
+"GitAPI": ""
 }
 
 [application]
@@ -52,6 +28,7 @@ config/icon="res://icon.png"
 
 window/size/width=1280
 window/size/height=720
+mouse_cursor/custom_image="res://Assets/UI/cursor_pointer3D_shadow.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -63,6 +40,10 @@ version_control_plugin_name="GitAPI"
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[global]
+
+run=false
 
 [gui]
 
