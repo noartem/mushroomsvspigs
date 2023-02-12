@@ -1,11 +1,16 @@
 extends Node2D
 
 
+onready var animation_player = get_node("AnimationPlayer")
+
 var data
+var type
+
+var built = false
+
 var enemies = []
 var enemy = null
-var type
-var built = false
+
 var fire_ready = true
 
 
@@ -14,8 +19,22 @@ func select_enemy():
 		enemy = enemies[0]
 
 
+func fire_gun():
+	animation_player.play("Fire")
+
+
+func fire_missile():
+	animation_player.play("Fire")
+
+
 func fire():
 	fire_ready = false
+	
+	if data["category"] == "Projectile":
+		fire_gun()
+	elif data["category"] == "Missile":
+		fire_missile()
+
 	enemy.on_hit(data["damage"])
 	yield(get_tree().create_timer(data["rof"]), "timeout")
 	fire_ready = true
@@ -27,7 +46,6 @@ func turn():
 
 func _ready():
 	if built:
-		data = GameData.towers[type]
 		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * data["range"]
 
 
@@ -36,10 +54,8 @@ func _physics_process(delta):
 		enemy = null
 	else:
 		select_enemy()
-		turn()
-
-		if fire_ready:
-			fire()
+		if not animation_player.is_playing(): turn()
+		if fire_ready: fire()
 
 
 func _on_Range_body_entered(body):
