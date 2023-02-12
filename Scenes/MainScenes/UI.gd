@@ -45,3 +45,23 @@ func clear_tower_preview():
 	drag_control.free()
 	drag_tower = null
 	drag_control = null
+
+
+func _on_PausePlay_pressed():
+	if get_parent().build_mode:
+		get_parent().cancel_build()
+
+	if get_parent().current_wave == 0:
+		get_parent().start_waves()
+	else:
+		get_tree().paused = not get_tree().is_paused()
+
+
+func _on_SpeedUp_pressed():
+	if get_parent().build_mode:
+		get_parent().cancel_build()
+
+	if Engine.get_time_scale() == 1.0:
+		Engine.set_time_scale(2.0)
+	else:
+		Engine.set_time_scale(1.0)	

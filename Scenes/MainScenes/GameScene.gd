@@ -79,6 +79,11 @@ func start_next_wave():
 	spawn_enemies(wave_data)
 
 
+func start_waves():
+	current_wave = 1
+	start_next_wave()
+
+
 func _ready():
 	map_node = get_node("Map1")
 	map_towers_node = map_node.get_node("Towers")
@@ -88,8 +93,6 @@ func _ready():
 
 	for build_btn in get_tree().get_nodes_in_group("build_buttons"):
 		build_btn.connect("pressed", self, "init_build_mode", [build_btn.get_name()])
-
-	start_next_wave()
 
 
 func _process(delta):
