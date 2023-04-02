@@ -15,6 +15,8 @@ var build_type
 
 var current_wave = 0
 
+@onready var play_pause_button = $UI/MarginContainer/HUD/PlayPause
+
 
 func init_build_mode(tower_type):
 	if build_mode:
@@ -70,11 +72,13 @@ func start_waves():
 
 	var random = RandomNumberGenerator.new()
 	random.randomize()
+	
+	current_wave = 0
 
 	var waves_data = get_waves_data()
-
-	current_wave = 0
 	for wave in waves_data.waves:
+		await sleep(waves_data.waves_delay)
+
 		current_wave += 1
 
 		for enemy_type in wave.receipe:
@@ -86,11 +90,7 @@ func start_waves():
 				var enemy_delay = random.randfn(enemy_delay_mean, enemy_delay_deviation)
 				await sleep(max(enemy_delay_min, enemy_delay))
 
-		await sleep(waves_data.waves_delay)
-
-	await sleep(0.2)
-
-	$UI/MarginContainer/HUD/PlayPause.button_pressed = false
+	play_pause_button.button_pressed = false
 
 
 func _ready():
