@@ -14,7 +14,6 @@ var build_location
 var build_type
 
 var current_wave = 0
-var enemies_in_wave = 0
 
 
 func init_build_mode(tower_type):
@@ -28,21 +27,21 @@ func init_build_mode(tower_type):
 
 func update_tower_preview():
 	var mouse_position = get_global_mouse_position()
-	build_tile = map_tower_exclusion_node.world_to_map(mouse_position)
-	build_location = map_tower_exclusion_node.map_to_world(build_tile)
-	build_valid = map_tower_exclusion_node.get_cellv(build_tile) == -1
+	build_tile = map_tower_exclusion_node.local_to_map(mouse_position)
+	build_location = map_tower_exclusion_node.map_to_local(build_tile)
+	build_valid = map_tower_exclusion_node.get_cell_source_id(0, build_tile) == -1
 	ui_node.update_tower_preview(build_location, build_valid)
 
 
 func verify_and_build():
 	if build_valid:
-		var new_tower = load("res://Scenes/Turrets/" + build_type + ".tscn").instance()
+		var new_tower = load("res://Scenes/Turrets/" + build_type + ".tscn").instantiate()
 		new_tower.position = build_location
 		new_tower.built = true
 		new_tower.type = build_type
 		new_tower.data = GameData.towers[build_type]
 		map_towers_node.add_child(new_tower, true)
-		map_tower_exclusion_node.set_cellv(build_tile, 5)
+		map_tower_exclusion_node.set_cell(0, build_tile, 5)
 
 
 func cancel_build():
@@ -54,48 +53,56 @@ func cancel_build():
 
 
 func sleep(time):
-	yield(get_tree().create_timer(time), "timeout")
+	return get_tree().create_timer(time).timeout
 
 
-func get_wave_data():
-	var wave_data = [
-		["TankT1", 0.64],
-		["TankT1", 0.64],
-		["TankT1", 1.28],
-		["TankT1", 0.0],
-	]
-	current_wave += 1
-	enemies_in_wave = wave_data.size()
-	return wave_data
+func get_waves_data():
+	return GameData.maps[0]
 
 
-func spawn_enemies(wave_data):
-	for enemy_data in wave_data:
-		var new_enemy = load("res://Scenes/Enemies/" + enemy_data[0] + ".tscn").instance()
-		map_path_node.add_child(new_enemy, true)
-		yield(get_tree().create_timer(enemy_data[1]), "timeout")
-
-
-func start_next_wave():
-	var wave_data = get_wave_data()
-	yield(get_tree().create_timer(0.2), "timeout")
-	spawn_enemies(wave_data)
+func spawn_enemy(enemy_type):
+	var new_enemy = load("res://Scenes/Enemies/" + enemy_type + ".tscn").instantiate()
+	map_path_node.add_child(new_enemy, true)
 
 
 func start_waves():
-	current_wave = 1
-	start_next_wave()
+	await sleep(0.2)
+
+	var random = RandomNumberGenerator.new()
+	random.randomize()
+
+	var waves_data = get_waves_data()
+
+	current_wave = 0
+	for wave in waves_data.waves:
+		current_wave += 1
+
+		for enemy_type in wave.receipe:
+			for i in wave.receipe[enemy_type]:
+				spawn_enemy(enemy_type)
+				var enemy_delay_min = wave.get("enemy_delay_min", 0.0)
+				var enemy_delay_mean = wave.get("enemy_delay_mean", 0.0)
+				var enemy_delay_deviation = wave.get("enemy_delay_deviation", 1.0)
+				var enemy_delay = random.randfn(enemy_delay_mean, enemy_delay_deviation)
+				await sleep(max(enemy_delay_min, enemy_delay))
+
+		await sleep(waves_data.waves_delay)
+
+	await sleep(0.2)
+
+	$UI/MarginContainer/HUD/PlayPause.button_pressed = false
 
 
 func _ready():
-	map_node = get_node("Map1")
+	map_node = get_node("Map")
 	map_towers_node = map_node.get_node("Towers")
 	map_tower_exclusion_node = map_node.get_node("TowerExclusion")
-	map_path_node = map_node.get_node("Path")
+	map_path_node = map_node.get_node("Path3D")
 	ui_node = get_node("UI")
 
 	for build_btn in get_tree().get_nodes_in_group("build_buttons"):
-		build_btn.connect("pressed", self, "init_build_mode", [build_btn.get_name()])
+		var build_btn_name = build_btn.get_name()
+		build_btn.connect("pressed", Callable(self,"init_build_mode").bind(build_btn_name))
 
 
 func _process(delta):
@@ -108,6 +115,6 @@ func _unhandled_input(event):
 		if event.is_action_released("ui_accept"):
 			verify_and_build()
 			cancel_build()
-		if event.is_action_released("ui_cancel"):
+		elif event.is_action_released("ui_cancel"):
 			cancel_build()
 

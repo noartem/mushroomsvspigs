@@ -1,7 +1,7 @@
 extends Node2D
 
 
-onready var animation_player = get_node("AnimationPlayer")
+@onready var animation_player = get_node("AnimationPlayer")
 
 var data
 var type
@@ -36,7 +36,7 @@ func fire():
 		fire_missile()
 
 	enemy.on_hit(data["damage"])
-	yield(get_tree().create_timer(data["rof"]), "timeout")
+	await get_tree().create_timer(data["rof"]).timeout
 	fire_ready = true
 
 
@@ -50,7 +50,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if enemies.empty() or not built:
+	if enemies.is_empty() or not built:
 		enemy = null
 	else:
 		select_enemy()

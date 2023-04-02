@@ -20,3 +20,23 @@ var towers = {
 		"category": "Missile",
 	},
 }
+
+var enemies = {
+	"TankT1": {},
+}
+
+var maps = [
+	{
+		"waves_delay": 5.0,
+		"waves": [
+			{
+				"enemy_delay_min": 0.5,
+				"enemy_delay_mean": 1.0,
+				"enemy_delay_deviation": 5.0,
+				"receipe": {
+					"TankT1": 4,
+				}
+			},
+		],
+	}
+]

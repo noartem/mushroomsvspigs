@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buj3fo4r2sbvj"
-path="res://.godot/imported/explosionSmoke4.png-70a1d67809f99ac349fb9730f8be4202.ctex"
+uid="uid://ccun4l4db4x6r"
+path="res://.godot/imported/TX Tileset Wall.png-91af040bc98b3e059d89b2602926c2d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/explosionSmoke4.png"
-dest_files=["res://.godot/imported/explosionSmoke4.png-70a1d67809f99ac349fb9730f8be4202.ctex"]
+source_file="res://Assets/Environment/Props/TX Tileset Wall.png"
+dest_files=["res://.godot/imported/TX Tileset Wall.png-91af040bc98b3e059d89b2602926c2d6.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 
 func _ready():
-	set_playing(true)
+	play()
 
 
 func _on_ProjectileImpact_animation_finished():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buj3fo4r2sbvj"
-path="res://.godot/imported/explosionSmoke4.png-70a1d67809f99ac349fb9730f8be4202.ctex"
+uid="uid://c20l6ic4sepkc"
+path="res://.godot/imported/TX Plant.png-c26cafed46d122424c72d42cc84d9545.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/explosionSmoke4.png"
-dest_files=["res://.godot/imported/explosionSmoke4.png-70a1d67809f99ac349fb9730f8be4202.ctex"]
+source_file="res://Assets/Environment/Props/TX Plant.png"
+dest_files=["res://.godot/imported/TX Plant.png-c26cafed46d122424c72d42cc84d9545.ctex"]
 
 [params]
 
