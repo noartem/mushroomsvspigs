@@ -2,6 +2,8 @@ extends Node2D
 
 
 @onready var animation_player = get_node("AnimationPlayer")
+@onready var base = get_node("Base")
+@onready var rotated = get_node("Rotated")
 
 var data
 var type
@@ -19,21 +21,10 @@ func select_enemy():
 		enemy = enemies[0]
 
 
-func fire_gun():
-	animation_player.play("Fire")
-
-
-func fire_missile():
-	animation_player.play("Fire")
-
-
 func fire():
 	fire_ready = false
-	
-	if data["category"] == "Projectile":
-		fire_gun()
-	elif data["category"] == "Missile":
-		fire_missile()
+
+	animation_player.play("Fire")
 
 	enemy.on_hit(data["damage"])
 	await get_tree().create_timer(data["rof"]).timeout
@@ -41,11 +32,13 @@ func fire():
 
 
 func turn():
-	get_node("Turret").look_at(enemy.position)
+	rotated.look_at(enemy.position)
+	base.set_flip_h(base.global_position.y > enemy.global_position.y)
 
 
 func _ready():
 	if built:
+		base.play("default")
 		self.get_node("Range/CollisionShape2D").get_shape().radius = 0.5 * data["range"]
 
 

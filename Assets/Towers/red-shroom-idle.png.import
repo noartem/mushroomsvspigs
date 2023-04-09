@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxwcp7xfxbh0o"
-path="res://.godot/imported/towerDefense_tile251.png-4fc9b757839ec376a12051840703cdaa.ctex"
+uid="uid://cmitd8xbhc5p8"
+path="res://.godot/imported/red-shroom-idle.png-e44d958fe68d0e8f6c60bb00537fe063.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Towers/towerDefense_tile251.png"
-dest_files=["res://.godot/imported/towerDefense_tile251.png-4fc9b757839ec376a12051840703cdaa.ctex"]
+source_file="res://Assets/Towers/red-shroom-idle.png"
+dest_files=["res://.godot/imported/red-shroom-idle.png-e44d958fe68d0e8f6c60bb00537fe063.ctex"]
 
 [params]
 

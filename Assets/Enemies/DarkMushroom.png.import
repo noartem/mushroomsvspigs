@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tf80cockx7nn"
-path="res://.godot/imported/towerDefense_tile250.png-68ed6b4ef6a21b0d9877cf13fc7d88c1.ctex"
+uid="uid://s086hxboejg4"
+path="res://.godot/imported/DarkMushroom.png-682732dc494a9e4becfd2ef5221f4bc6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Towers/towerDefense_tile250.png"
-dest_files=["res://.godot/imported/towerDefense_tile250.png-68ed6b4ef6a21b0d9877cf13fc7d88c1.ctex"]
+source_file="res://Assets/Enemies/DarkMushroom.png"
+dest_files=["res://.godot/imported/DarkMushroom.png-682732dc494a9e4becfd2ef5221f4bc6.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbgyv84isko8l"
-path="res://.godot/imported/explosionSmoke2.png-2092743930202aa1bfe77b3332d36818.ctex"
+uid="uid://b6lw685ixw1g1"
+path="res://.godot/imported/splash01.png-51a8484149f8fb85366bb3027815066f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Effects/explosionSmoke2.png"
-dest_files=["res://.godot/imported/explosionSmoke2.png-2092743930202aa1bfe77b3332d36818.ctex"]
+source_file="res://Assets/Effects/splash01.png"
+dest_files=["res://.godot/imported/splash01.png-51a8484149f8fb85366bb3027815066f.ctex"]
 
 [params]
 

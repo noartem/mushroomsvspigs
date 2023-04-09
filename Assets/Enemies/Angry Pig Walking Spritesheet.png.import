@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u0ieefertkfn"
-path="res://.godot/imported/towerDefense_tile180.png-6143bb9cb5d4b61700089800c0989782.ctex"
+uid="uid://da8jdjwwi112c"
+path="res://.godot/imported/Angry Pig Walking Spritesheet.png-f7868b8114c599906f7b240f04d6089a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Towers/towerDefense_tile180.png"
-dest_files=["res://.godot/imported/towerDefense_tile180.png-6143bb9cb5d4b61700089800c0989782.ctex"]
+source_file="res://Assets/Enemies/Angry Pig Walking Spritesheet.png"
+dest_files=["res://.godot/imported/Angry Pig Walking Spritesheet.png-f7868b8114c599906f7b240f04d6089a.ctex"]
 
 [params]
 

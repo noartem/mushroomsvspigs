@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dq3yhkf77ru57"]
+
+[ext_resource type="Texture2D" uid="uid://s086hxboejg4" path="res://Assets/Enemies/DarkMushroom.png" id="1_57mcf"]
+
+[node name="DarkMushroom" type="Node2D"]
+
+[node name="Base" type="Sprite2D" parent="."]
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("1_57mcf")
+offset = Vector2(62, 68)

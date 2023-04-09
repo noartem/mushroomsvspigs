@@ -1,0 +1,104 @@
+[gd_scene load_steps=14 format=3 uid="uid://cnrkv7i365kre"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/PigT1.gd" id="1_8pb6a"]
+[ext_resource type="Texture2D" uid="uid://da8jdjwwi112c" path="res://Assets/Enemies/Angry Pig Walking Spritesheet.png" id="2_10iwf"]
+[ext_resource type="Texture2D" uid="uid://c6gf7bblu6uyt" path="res://Assets/UI/HPbar.jpg" id="3_t7mat"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(43, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk635"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_con1v"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8ov8"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qaov7"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upogl"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l67w"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4j3p"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bor5r"]
+atlas = ExtResource("2_10iwf")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_prfk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk635")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_con1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8ov8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qaov7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upogl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l67w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4j3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bor5r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PigT1" type="PathFollow2D"]
+rotates = false
+loop = false
+script = ExtResource("1_8pb6a")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-0.5, -2.5)
+shape = SubResource("1")
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_prfk0")
+flip_h = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -24.0
+offset_top = -35.0
+offset_right = 24.0
+offset_bottom = -31.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("3_t7mat")
+texture_progress = ExtResource("3_t7mat")
+tint_under = Color(0.870588, 0.870588, 0.870588, 1)
+tint_progress = Color(0.14902, 0.509804, 0.403922, 1)
+
+[node name="Impact" type="Marker2D" parent="."]
+position = Vector2(-12, -12)

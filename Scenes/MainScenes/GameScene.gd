@@ -16,6 +16,7 @@ var build_type
 var current_wave = 0
 
 @onready var play_pause_button = $UI/MarginContainer/HUD/PlayPause
+@onready var progress_bar = $UI/MarginContainer/HUD/ProgressBar
 
 
 func init_build_mode(tower_type):
@@ -37,7 +38,7 @@ func update_tower_preview():
 
 func verify_and_build():
 	if build_valid:
-		var new_tower = load("res://Scenes/Turrets/" + build_type + ".tscn").instantiate()
+		var new_tower = load("res://Scenes/Towers/" + build_type + ".tscn").instantiate()
 		new_tower.position = build_location
 		new_tower.built = true
 		new_tower.type = build_type
@@ -68,14 +69,14 @@ func spawn_enemy(enemy_type):
 
 
 func start_waves():
-	await sleep(0.2)
-
 	var random = RandomNumberGenerator.new()
 	random.randomize()
-	
-	current_wave = 0
 
 	var waves_data = get_waves_data()
+	var waves_count = waves_data.waves.size()
+
+	current_wave = 0
+
 	for wave in waves_data.waves:
 		await sleep(waves_data.waves_delay)
 
@@ -89,6 +90,8 @@ func start_waves():
 				var enemy_delay_deviation = wave.get("enemy_delay_deviation", 1.0)
 				var enemy_delay = random.randfn(enemy_delay_mean, enemy_delay_deviation)
 				await sleep(max(enemy_delay_min, enemy_delay))
+
+		progress_bar.value = float(current_wave) / float(waves_count) * 100
 
 	play_pause_button.button_pressed = false
 
@@ -104,6 +107,8 @@ func _ready():
 		var build_btn_name = build_btn.get_name()
 		build_btn.connect("pressed", Callable(self,"init_build_mode").bind(build_btn_name))
 
+	#await sleep(5.0)
+	start_waves()
 
 func _process(delta):
 	if build_mode:
@@ -117,4 +122,3 @@ func _unhandled_input(event):
 			cancel_build()
 		elif event.is_action_released("ui_cancel"):
 			cancel_build()
-
