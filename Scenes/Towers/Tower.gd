@@ -33,7 +33,7 @@ func fire():
 
 func turn():
 	rotated.look_at(enemy.position)
-	base.set_flip_h(base.global_position.y > enemy.global_position.y)
+	base.set_flip_h(base.global_position.x > enemy.global_position.x)
 
 
 func _ready():

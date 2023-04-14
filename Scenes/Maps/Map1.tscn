@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cl3go1fjrt422"]
+[gd_scene load_steps=17 format=3 uid="uid://cl3go1fjrt422"]
 
 [ext_resource type="Texture2D" uid="uid://bvm4vrfygpyp5" path="res://Assets/Environment/Tilesets/TX Tileset Grass.png" id="1_y3ccp"]
 [ext_resource type="Texture2D" uid="uid://c20l6ic4sepkc" path="res://Assets/Environment/Props/TX Plant.png" id="2_62eqe"]
@@ -675,6 +675,9 @@ _data = {
 }
 point_count = 23
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6lkes"]
+size = Vector2(88, 89)
+
 [node name="Map1" type="Node2D"]
 
 [node name="Ground" type="TileMap" parent="."]
@@ -723,3 +726,9 @@ curve = SubResource("3")
 
 [node name="Towers" type="TileMap" parent="."]
 format = 2
+
+[node name="Base" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+position = Vector2(1350, 547)
+shape = SubResource("RectangleShape2D_6lkes")

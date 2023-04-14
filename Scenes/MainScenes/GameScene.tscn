@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfcted8ic63g2"]
+[gd_scene load_steps=18 format=3 uid="uid://bfcted8ic63g2"]
 
 [ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3"]
@@ -48,6 +48,10 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="Theme" id="Theme_1eqnh"]
 default_font = SubResource("1")
+
+[sub_resource type="LabelSettings" id="LabelSettings_cld70"]
+font = ExtResource("10_ekuug")
+font_size = 64
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("6")
@@ -203,6 +207,128 @@ grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
 text = "Quit"
 
+[node name="LooseScreen" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="LooseScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0352941, 0.0352941, 0.0352941, 0.431373)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LooseScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LooseScreen/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="LooseScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1eqnh")
+text = "You lose("
+label_settings = SubResource("LabelSettings_cld70")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="LooseScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Quit" type="TextureButton" parent="LooseScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("11_dhkc6")
+texture_pressed = ExtResource("12_3fynj")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="LooseScreen/HBoxContainer/VBoxContainer/Quit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -13.5
+offset_right = 24.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1eqnh")
+text = "Quit"
+
+[node name="WinScreen" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="WinScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0352941, 0.0352941, 0.0352941, 0.431373)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WinScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WinScreen/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="WinScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_1eqnh")
+text = "You won!"
+label_settings = SubResource("LabelSettings_cld70")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="WinScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Quit" type="TextureButton" parent="WinScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("11_dhkc6")
+texture_pressed = ExtResource("12_3fynj")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="WinScreen/HBoxContainer/VBoxContainer/Quit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -13.5
+offset_right = 24.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1eqnh")
+text = "Quit"
+
 [connection signal="pressed" from="UI/MarginContainer/HUD/PlayPause" to="UI" method="_on_play_pause_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Continue" to="UI" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="LooseScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="WinScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]

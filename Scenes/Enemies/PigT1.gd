@@ -3,6 +3,9 @@ extends PathFollow2D
 
 var speed = 150
 var hp = 50
+var died = false
+
+signal dies()
 
 @onready var health_bar = $HealthBar
 
@@ -16,7 +19,9 @@ func destroy():
 func on_hit(damage):
 	hp -= damage
 	health_bar.value = hp
-	if hp <= 0:
+	if hp <= 0 and not died:
+		died = true
+		dies.emit()
 		destroy()
 
 

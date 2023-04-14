@@ -48,14 +48,17 @@ func clear_tower_preview():
 	drag_control = null
 
 
-func toggle_pause():
+func set_pause(is_paused):
 	if get_parent().build_mode:
 		get_parent().cancel_build()
 
-	var is_paused = get_tree().is_paused()
-	get_tree().paused = not is_paused
-	get_node("MarginContainer/HUD/PlayPause").button_pressed = not is_paused
-	get_parent().get_node("PauseScreen").visible = not is_paused
+	get_tree().paused = is_paused
+	get_node("MarginContainer/HUD/PlayPause").button_pressed = is_paused
+	get_parent().get_node("PauseScreen").visible = is_paused
+
+
+func toggle_pause():
+	set_pause(not get_tree().is_paused())
 
 
 func _on_play_pause_pressed():
@@ -67,4 +70,5 @@ func _on_continue_pressed():
 
 
 func _on_quit_pressed():
-	get_tree().quit()
+	get_tree().paused = false
+	get_parent().get_parent().back_to_main_menu()
