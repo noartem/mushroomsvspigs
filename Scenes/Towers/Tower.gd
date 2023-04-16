@@ -6,7 +6,6 @@ extends Node2D
 @onready var rotated = get_node("Rotated")
 
 var data
-var type
 
 var built = false
 
