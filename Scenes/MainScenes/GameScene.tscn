@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfcted8ic63g2"]
+[gd_scene load_steps=19 format=3 uid="uid://bfcted8ic63g2"]
 
 [ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3"]
@@ -12,24 +12,6 @@
 [ext_resource type="FontFile" uid="uid://bpln322746wyd" path="res://Assets/Fonts/Kenney Blocks.ttf" id="10_ekuug"]
 [ext_resource type="Texture2D" uid="uid://dfinilvc4arx7" path="res://Assets/UI/Buttons/red_button02.png" id="11_dhkc6"]
 [ext_resource type="Texture2D" uid="uid://d2gkuptoivqlm" path="res://Assets/UI/Buttons/red_button00.png" id="12_3fynj"]
-
-[sub_resource type="FontFile" id="FontFile_7qaux"]
-subpixel_positioning = 0
-msdf_pixel_range = 14
-msdf_size = 128
-fallbacks = Array[Font]([ExtResource("10_ekuug"), ExtResource("10_ekuug")])
-face_index = null
-embolden = null
-transform = null
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="Theme" id="Theme_dmbqd"]
-default_font = SubResource("FontFile_7qaux")
 
 [sub_resource type="FontFile" id="1"]
 subpixel_positioning = 0
@@ -51,7 +33,30 @@ default_font = SubResource("1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_cld70"]
 font = ExtResource("10_ekuug")
-font_size = 64
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_uqx70"]
+line_spacing = 0.0
+font_size = 20
+font_color = Color(1, 0.843137, 0, 1)
+
+[sub_resource type="FontFile" id="FontFile_7qaux"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+fallbacks = Array[Font]([ExtResource("10_ekuug"), ExtResource("10_ekuug")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="Theme" id="Theme_dmbqd"]
+default_font = SubResource("FontFile_7qaux")
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("6")
@@ -105,30 +110,86 @@ grow_vertical = 2
 texture = ExtResource("5_n2en3")
 expand_mode = 1
 
-[node name="PlayPause" type="TextureButton" parent="UI/MarginContainer/HUD"]
-process_mode = 3
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/HUD"]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 11
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -100.0
 grow_horizontal = 0
-grow_vertical = 0
+grow_vertical = 2
+
+[node name="Waves" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Waves"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme = SubResource("Theme_1eqnh")
+text = "Waves"
+label_settings = SubResource("LabelSettings_cld70")
+horizontal_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/HUD/VBoxContainer/Waves"]
+modulate = Color(0.666667, 1, 0.666667, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="HP" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/HP"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme = SubResource("Theme_1eqnh")
+text = "HP"
+label_settings = SubResource("LabelSettings_cld70")
+horizontal_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/HUD/VBoxContainer/HP"]
+modulate = Color(1, 0.666667, 0.666667, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 50.0
+
+[node name="Wallet" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Wallet"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme = SubResource("Theme_1eqnh")
+text = "Wallet"
+label_settings = SubResource("LabelSettings_cld70")
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Wallet"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "150"
+label_settings = SubResource("LabelSettings_uqx70")
+horizontal_alignment = 1
+
+[node name="Container" type="Container" parent="UI/MarginContainer/HUD/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayPause" type="TextureButton" parent="UI/MarginContainer/HUD/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 toggle_mode = true
 texture_normal = ExtResource("8")
 texture_pressed = ExtResource("7")
-
-[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/HUD"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -155.0
-offset_bottom = 27.0
-grow_horizontal = 0
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -406,7 +467,7 @@ grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
 text = "Quit"
 
-[connection signal="pressed" from="UI/MarginContainer/HUD/PlayPause" to="UI" method="_on_play_pause_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/HUD/VBoxContainer/PlayPause" to="UI" method="_on_play_pause_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Continue" to="UI" method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]

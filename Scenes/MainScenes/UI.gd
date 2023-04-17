@@ -9,11 +9,16 @@ var color_valid = Color("00753daa")
 var color_invalid = Color("a63430aa")
 
 
+func _on_drag_tower_ui_accept():
+	get_parent().verify_and_build()
+	get_parent().cancel_build()
+
+
 func set_tower_preview(tower_type, mouse_position):
 	drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instantiate()
 	drag_tower.set_name("DragTower")
 	drag_tower.modulate = color_valid
-	
+
 	drag_tower_range_texture = Sprite2D.new()
 	drag_tower_range_texture.position = Vector2(32, 32)
 	var range_scale = GameData.towers[tower_type].range / 600.0
@@ -26,6 +31,8 @@ func set_tower_preview(tower_type, mouse_position):
 	drag_control.add_child(drag_tower_range_texture, true)
 	drag_control.position = mouse_position
 	drag_control.set_name("TowerPreview")
+	drag_control.process_mode = Node.PROCESS_MODE_DISABLED
+
 	add_child(drag_control, true)
 	move_child(drag_control, 0)
 
@@ -53,7 +60,7 @@ func set_pause(is_paused):
 		get_parent().cancel_build()
 
 	get_tree().paused = is_paused
-	get_node("MarginContainer/HUD/PlayPause").button_pressed = is_paused
+	get_node("MarginContainer/HUD/VBoxContainer/PlayPause").button_pressed = is_paused
 	get_parent().get_node("PauseScreen").visible = is_paused
 
 

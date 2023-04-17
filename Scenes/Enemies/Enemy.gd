@@ -3,7 +3,10 @@ extends PathFollow2D
 
 var speed = -1
 var hp = -1
+var damage = -1
 var died = false
+
+var data
 
 signal dies()
 
@@ -16,13 +19,17 @@ func destroy():
 	self.queue_free()
 
 
+func kill():
+	died = true
+	dies.emit(self)
+	destroy()
+
+
 func on_hit(damage):
 	hp -= damage
 	health_bar.value = hp
 	if hp <= 0 and not died:
-		died = true
-		dies.emit()
-		destroy()
+		kill()
 
 
 func move(delta):

@@ -2,10 +2,14 @@ extends Node2D
 
 
 var map_i = 0
+var map_status = "in_process"
 var map_data
 
+var wallet = 0 : set = _set_wallet
+var base_hp = 0
+
 var waves_count = 0
-var current_wave = 0
+var wave_i = 0
 var waves_finished = false
 var enemies_spawned = 0
 var enemies_died = 0
@@ -24,9 +28,18 @@ var build_tile
 var build_location
 var build_type
 
+var random
+var TWEEN_DURATION = 0.25
+
+var color_default = Color(1, 1, 1, 1)
+var color_disabled = Color("aaaaaaaa")
+
 @onready var ui = $UI
-@onready var play_pause_button = $UI/MarginContainer/HUD/PlayPause
-@onready var progress_bar = $UI/MarginContainer/HUD/ProgressBar
+@onready var play_pause_button = $UI/MarginContainer/HUD/VBoxContainer/PlayPause
+@onready var waves_bar = $UI/MarginContainer/HUD/VBoxContainer/Waves/ProgressBar
+@onready var base_hp_bar = $UI/MarginContainer/HUD/VBoxContainer/HP/ProgressBar
+@onready var wallet_label = $UI/MarginContainer/HUD/VBoxContainer/Wallet/Label2
+@onready var build_bar = $UI/MarginContainer/HUD/BuildBar
 @onready var pause_screen = $PauseScreen
 @onready var loose_screen = $LooseScreen
 @onready var win_screen = $WinScreen
@@ -60,14 +73,19 @@ func update_tower_preview():
 
 
 func verify_and_build():
-	if build_valid:
-		var tower_data = GameData.towers[build_type]
-		var tower = load(tower_data["path"]).instantiate()
-		tower.position = build_location
-		tower.built = true
-		tower.data = tower_data
-		map_towers_node.add_child(tower, true)
-		map_towers_set[str(build_tile)] = true
+	if not build_valid: return
+
+	var tower_data = GameData.towers[build_type]
+
+	var tower = load(tower_data["path"]).instantiate()
+	tower.position = build_location
+	tower.built = true
+	tower.data = tower_data
+
+	map_towers_node.add_child(tower, true)
+	map_towers_set[str(build_tile)] = true
+
+	wallet -= tower_data.price
 
 
 func cancel_build():
@@ -99,6 +117,8 @@ func make_enemy(enemy_type):
 	var enemy = load("res://Scenes/Enemies/" + enemy_type + ".tscn").instantiate()
 	enemy.hp = enemy_data["hp"]
 	enemy.speed = enemy_data["speed"]
+	enemy.damage = enemy_data["damage"]
+	enemy.data = enemy_data
 	return enemy
 
 
@@ -108,42 +128,85 @@ func spawn_enemy(enemy):
 	enemies_spawned += 1
 
 
-func _on_enemy_dies():
+
+func wallet_label_set_raw(value: int):
+	wallet_label.text = str(value).lpad(3, "0")
+
+var wallet_label_set_tween
+
+func wallet_label_set(value: int):
+	if wallet_label_set_tween:
+		wallet_label_set_tween.kill()
+	wallet_label_set_tween = get_tree().create_tween() 
+	wallet_label_set_tween.tween_method(wallet_label_set_raw, int(wallet_label.text), value, TWEEN_DURATION)
+
+
+func update_available_towers():
+	for tower_type in map_data.towers:
+		var tower_data = GameData.towers[tower_type]
+		var tower_price = tower_data.price
+
+		var button: TextureButton = build_bar.get_node(tower_type)
+
+		if tower_price > wallet:
+			button.disabled = true
+			button.modulate = color_disabled
+		else:
+			button.disabled = false
+			button.modulate = color_default
+
+
+func _set_wallet(value):
+	wallet = value
+	wallet_label_set(wallet)
+	update_available_towers()
+
+
+func _on_enemy_dies(enemy):
 	enemies_died += 1
+	
+	if enemy.hp <= 0:
+		var bounty = int(random.randi_range(enemy.data.bounty_min, enemy.data.bounty_max))
+
+		wallet += bounty
 
 	await sleep(5.0)
 	if enemies_spawned == enemies_died and waves_finished:
 		on_won()
 
 
-func start_waves():
-	var random = RandomNumberGenerator.new()
-	random.randomize()
+var waves_bar_set_tween
 
-	waves_count = map_data.waves.size()
+func waves_bar_set(value):
+	if waves_bar_set_tween:
+		waves_bar_set_tween.kill()
+	waves_bar_set_tween = get_tree().create_tween()
+	waves_bar_set_tween.tween_property(waves_bar, "value", value, TWEEN_DURATION)
 
-	current_wave = 0
-	enemies_spawned = 0
-	enemies_died = 0
 
+func spawn_waves():
 	for wave in map_data.waves:
 		await sleep(map_data.waves_delay)
+		
+		var wave_parts_count = wave.receipe.size()
+		var wave_part_i = 0
 
-		current_wave += 1
-
-		for enemy_type in wave.receipe:
-			for i in wave.receipe[enemy_type]:
-				var enemy = make_enemy(enemy_type)
+		for wave_part in wave.receipe:
+			for enemy_i in wave_part.count:
+				var enemy = make_enemy(wave_part.type)
 				spawn_enemy(enemy)
 				enemy.dies.connect(_on_enemy_dies)
 
-				var enemy_delay_min = wave.get("enemy_delay_min", 0.0)
-				var enemy_delay_mean = wave.get("enemy_delay_mean", 0.0)
-				var enemy_delay_deviation = wave.get("enemy_delay_deviation", 1.0)
-				var enemy_delay = random.randfn(enemy_delay_mean, enemy_delay_deviation)
-				await sleep(max(enemy_delay_min, enemy_delay))
+				waves_bar_set(wave_i + ((enemy_i + 1.0) / wave_part.count)*(wave_parts_count))
 
-		progress_bar.value = float(current_wave) / float(waves_count) * 100
+				var enemy_delay_min = wave.get("enemy_delay_min", 0.0)
+				var enemy_delay_max = wave.get("enemy_delay_max", 1.0)
+				var enemy_delay = random.randf_range(enemy_delay_min, enemy_delay_max)
+				await sleep(enemy_delay)
+
+			wave_part_i += 1
+
+		wave_i += 1
 
 	waves_finished = true
 
@@ -153,6 +216,10 @@ func set_pause(value):
 
 
 func on_won():
+	if map_status != "in_process":
+		return
+
+	map_status = "won"
 	set_pause(false)
 	get_tree().paused = true
 	play_pause_button.button_pressed = false
@@ -161,6 +228,10 @@ func on_won():
 
 
 func on_loose():
+	if map_status != "in_process":
+		return
+
+	map_status = "loose"
 	set_pause(false)
 	get_tree().paused = true
 	play_pause_button.button_pressed = false
@@ -172,12 +243,41 @@ func replace_node(new_node, old_node):
 	add_child(new_node)
 	new_node.name = old_node.name
 	new_node.position = old_node.position
-	print(str(old_node.position))
 	old_node.queue_free()
 
 
+func make_image_texture(image_path):
+	var texture = ImageTexture.new()
+	var image = Image.new()
+	image.load("res://icon.png")
+	texture.create_from_image(image)
+	return texture
+
+
+func init_build_buttons():
+	for button in build_bar.get_children():
+		button.hide()
+
+	for tower_type in map_data.towers:
+		var button = build_bar.get_node(tower_type)
+		button.show()
+		button.pressed.connect(init_build_mode.bind(tower_type))
+
+	update_available_towers()
+
+
 func _ready():
+	random = RandomNumberGenerator.new()
+	random.randomize()
+
 	map_data = GameData.maps[map_i]
+	waves_count = map_data.waves.size()
+	wave_i = 0
+	enemies_spawned = 0
+	enemies_died = 0
+	base_hp = map_data.base_hp
+	wallet = map_data.wallet_start
+
 	map_node = load(map_data["path"]).instantiate()
 	replace_node(map_node, get_node("Map"))
 
@@ -188,11 +288,17 @@ func _ready():
 	map_base_node = map_node.get_node("Base")
 	map_base_node.body_entered.connect(_on_Base_body_entered)
 
-	for build_btn in get_tree().get_nodes_in_group("build_buttons"):
-		var build_btn_name = build_btn.get_name()
-		build_btn.connect("pressed", Callable(self,"init_build_mode").bind(build_btn_name))
+	waves_bar.value = 0
 
-	start_waves()
+	base_hp_bar.max_value = base_hp
+	base_hp_bar_set(base_hp)
+	
+	waves_bar.max_value = waves_count
+	waves_bar_set(0)
+
+	init_build_buttons()
+
+	spawn_waves()
 
 
 func _process(delta):
@@ -201,16 +307,39 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	if build_mode:
-		if event.is_action_released("ui_accept"):
-			verify_and_build()
-			cancel_build()
-		elif event.is_action_released("ui_cancel"):
-			cancel_build()
+	if build_mode and event.is_action_released("ui_accept"):
+		verify_and_build()
+		cancel_build()
+
+	if build_mode and event.is_action_released("ui_cancel"):
+		cancel_build()
+
+	if event.is_action_released("key_exit"):
+		set_pause(true)
 
 
-func _on_Base_body_entered(body):
-	on_loose()
+var base_hp_bar_set_tween
+
+func base_hp_bar_set(value):
+	if base_hp_bar_set_tween:
+		base_hp_bar_set_tween.kill()
+	base_hp_bar_set_tween = get_tree().create_tween()
+	base_hp_bar_set_tween.tween_property(base_hp_bar, "value", value, TWEEN_DURATION)	
+
+
+func _on_base_damage(damage):
+	base_hp -= damage
+	base_hp_bar_set(base_hp)
+
+	if base_hp <= 0:
+		await sleep(TWEEN_DURATION)
+		on_loose()
+
+
+func _on_Base_body_entered(enemy_body):
+	var enemy = enemy_body.get_parent()
+	_on_base_damage(enemy.damage)
+	enemy.kill()
 
 
 func _on_try_again_pressed():
