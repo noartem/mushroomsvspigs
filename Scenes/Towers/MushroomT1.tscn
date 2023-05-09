@@ -27,6 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="1"]
+radius = 175.0
 
 [sub_resource type="Animation" id="2"]
 resource_name = "Fire"
@@ -54,21 +55,27 @@ _data = {
 script = ExtResource("1_1rjeo")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
-offset_right = 64.0
-offset_bottom = 64.0
+process_mode = 4
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
-position = Vector2(32, 32)
+position = Vector2(0, -1)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_4q82n")
 speed_scale = 4.0
 
 [node name="Rotated" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-offset = Vector2(12, 0)
+position = Vector2(0, 16)
 
 [node name="Muzzle" type="Marker2D" parent="Rotated"]
-position = Vector2(2, 0)
 
 [node name="MuzzleFlash" type="Sprite2D" parent="Rotated/Muzzle"]
 visible = false
@@ -80,7 +87,6 @@ texture = ExtResource("4_6tjp2")
 [node name="Range" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
-position = Vector2(33, 32)
 shape = SubResource("1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

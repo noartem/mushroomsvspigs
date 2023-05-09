@@ -25,8 +25,8 @@ func kill():
 	destroy()
 
 
-func on_hit(damage):
-	hp -= damage
+func on_hit(hit_damage):
+	hp -= hit_damage
 	health_bar.value = hp
 	if hp <= 0 and not died:
 		kill()

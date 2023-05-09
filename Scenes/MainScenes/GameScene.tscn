@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfcted8ic63g2"]
+[gd_scene load_steps=23 format=3 uid="uid://bfcted8ic63g2"]
 
 [ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3"]
-[ext_resource type="Script" path="res://Scenes/MainScenes/UI.gd" id="5"]
 [ext_resource type="Texture2D" uid="uid://csdxnbnpjwviq" path="res://Assets/Towers/red-shroom-single.png" id="5_n2en3"]
+[ext_resource type="Texture2D" uid="uid://dw0nc28itbhq7" path="res://Assets/UI/Buttons/red_button09.png" id="5_ppw0u"]
 [ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://d18lp21gvntwj" path="res://Assets/Icons/trashcanOpen.png" id="6_jqxb8"]
 [ext_resource type="Texture2D" uid="uid://s1lkb4o7y2g" path="res://Assets/Icons/right.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://dedap7vhyvvor" path="res://Assets/Icons/pause.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://bkmqlmy7ocfh7" path="res://Assets/UI/Buttons/blue_button03.png" id="8_g2jdo"]
@@ -12,6 +13,8 @@
 [ext_resource type="FontFile" uid="uid://bpln322746wyd" path="res://Assets/Fonts/Kenney Blocks.ttf" id="10_ekuug"]
 [ext_resource type="Texture2D" uid="uid://dfinilvc4arx7" path="res://Assets/UI/Buttons/red_button02.png" id="11_dhkc6"]
 [ext_resource type="Texture2D" uid="uid://d2gkuptoivqlm" path="res://Assets/UI/Buttons/red_button00.png" id="12_3fynj"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4kyaw"]
 
 [sub_resource type="FontFile" id="1"]
 subpixel_positioning = 0
@@ -27,17 +30,23 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
 
 [sub_resource type="Theme" id="Theme_1eqnh"]
 default_font = SubResource("1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_cld70"]
 font = ExtResource("10_ekuug")
-font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqx70"]
 line_spacing = 0.0
-font_size = 20
 font_color = Color(1, 0.843137, 0, 1)
 
 [sub_resource type="FontFile" id="FontFile_7qaux"]
@@ -58,45 +67,54 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 [sub_resource type="Theme" id="Theme_dmbqd"]
 default_font = SubResource("FontFile_7qaux")
 
+[sub_resource type="LabelSettings" id="LabelSettings_ohfbf"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_mk2vw"]
+font_size = 24
+
 [node name="GameScene" type="Node2D"]
 script = ExtResource("6")
 
 [node name="Map" parent="." instance=ExtResource("1")]
+position = Vector2(16, 16)
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("5")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = -16.0
-mouse_filter = 2
-
-[node name="HUD" type="Control" parent="UI/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="BuildBar" type="VBoxContainer" parent="UI/MarginContainer/HUD"]
-custom_minimum_size = Vector2(80, 384)
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 80.0
+grow_horizontal = 2
 grow_vertical = 2
-alignment = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="MushroomT1" type="TextureButton" parent="UI/MarginContainer/HUD/BuildBar" groups=["build_buttons"]]
+[node name="BottomBar" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 24
+
+[node name="Control1" type="Control" parent="UI/MarginContainer/BottomBar"]
+layout_mode = 2
+
+[node name="BuildBar" type="HBoxContainer" parent="UI/MarginContainer/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="MushroomT1" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
+material = SubResource("CanvasItemMaterial_4kyaw")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 0
 texture_normal = ExtResource("3")
 stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="UI/MarginContainer/HUD/BuildBar/MushroomT1"]
+[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/MushroomT1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -110,20 +128,43 @@ grow_vertical = 2
 texture = ExtResource("5_n2en3")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/HUD"]
+[node name="Trash" type="TextureButton" parent="UI/MarginContainer/BottomBar" groups=["build_buttons"]]
+material = SubResource("CanvasItemMaterial_4kyaw")
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_ppw0u")
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/Trash"]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("6_jqxb8")
+expand_mode = 1
 
-[node name="Waves" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+[node name="Control2" type="Control" parent="UI/MarginContainer/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Waves" type="HBoxContainer" parent="UI/MarginContainer/BottomBar/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Waves"]
+[node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/Waves"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
@@ -131,7 +172,7 @@ text = "Waves"
 label_settings = SubResource("LabelSettings_cld70")
 horizontal_alignment = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/HUD/VBoxContainer/Waves"]
+[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/BottomBar/VBoxContainer/Waves"]
 modulate = Color(0.666667, 1, 0.666667, 1)
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -139,11 +180,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="HP" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+[node name="HP" type="HBoxContainer" parent="UI/MarginContainer/BottomBar/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/HP"]
+[node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/HP"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
@@ -151,7 +192,7 @@ text = "HP"
 label_settings = SubResource("LabelSettings_cld70")
 horizontal_alignment = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/HUD/VBoxContainer/HP"]
+[node name="ProgressBar" type="ProgressBar" parent="UI/MarginContainer/BottomBar/VBoxContainer/HP"]
 modulate = Color(1, 0.666667, 0.666667, 1)
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
@@ -159,11 +200,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 50.0
 
-[node name="Wallet" type="HBoxContainer" parent="UI/MarginContainer/HUD/VBoxContainer"]
+[node name="Wallet" type="HBoxContainer" parent="UI/MarginContainer/BottomBar/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Wallet"]
+[node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/Wallet"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
@@ -171,22 +212,22 @@ text = "Wallet"
 label_settings = SubResource("LabelSettings_cld70")
 horizontal_alignment = 2
 
-[node name="Label2" type="Label" parent="UI/MarginContainer/HUD/VBoxContainer/Wallet"]
+[node name="Label2" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/Wallet"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "150"
 label_settings = SubResource("LabelSettings_uqx70")
 horizontal_alignment = 1
 
-[node name="Container" type="Container" parent="UI/MarginContainer/HUD/VBoxContainer"]
+[node name="Control3" type="Control" parent="UI/MarginContainer/BottomBar"]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="PlayPause" type="TextureButton" parent="UI/MarginContainer/HUD/VBoxContainer"]
+[node name="PlayPause" type="TextureButton" parent="UI/MarginContainer"]
 process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 4
+size_flags_vertical = 0
 toggle_mode = true
 texture_normal = ExtResource("8")
 texture_pressed = ExtResource("7")
@@ -321,7 +362,7 @@ alignment = 1
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
 text = "You lose("
-label_settings = SubResource("LabelSettings_cld70")
+label_settings = SubResource("LabelSettings_ohfbf")
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="LooseScreen/HBoxContainer/VBoxContainer"]
@@ -344,14 +385,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -13.5
-offset_right = 24.0
-offset_bottom = 13.5
+offset_left = -50.0
+offset_top = -13.0
+offset_right = 50.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
 text = "Try Again"
+
+[node name="Control2" type="Control" parent="LooseScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 
 [node name="Quit" type="TextureButton" parent="LooseScreen/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
@@ -406,7 +451,7 @@ alignment = 1
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
 text = "You won!"
-label_settings = SubResource("LabelSettings_cld70")
+label_settings = SubResource("LabelSettings_mk2vw")
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="WinScreen/HBoxContainer/VBoxContainer"]
@@ -467,11 +512,12 @@ grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
 text = "Quit"
 
-[connection signal="pressed" from="UI/MarginContainer/HUD/VBoxContainer/PlayPause" to="UI" method="_on_play_pause_pressed"]
-[connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Continue" to="UI" method="_on_continue_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/BottomBar/Trash" to="." method="_on_trash_pressed"]
+[connection signal="pressed" from="UI/MarginContainer/PlayPause" to="." method="_on_play_pause_pressed"]
+[connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="PauseScreen/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="LooseScreen/HBoxContainer/VBoxContainer/TryAgain" to="." method="_on_try_again_pressed"]
-[connection signal="pressed" from="LooseScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="LooseScreen/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="WinScreen/HBoxContainer/VBoxContainer/Next" to="." method="_on_next_pressed"]
-[connection signal="pressed" from="WinScreen/HBoxContainer/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="WinScreen/HBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
