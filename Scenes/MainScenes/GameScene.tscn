@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://bfcted8ic63g2"]
+[gd_scene load_steps=24 format=3 uid="uid://bfcted8ic63g2"]
 
 [ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://d0tr2jfnybkml" path="res://Assets/Towers/frost-shroom-single.png" id="5_clrqj"]
 [ext_resource type="Texture2D" uid="uid://csdxnbnpjwviq" path="res://Assets/Towers/red-shroom-single.png" id="5_n2en3"]
 [ext_resource type="Texture2D" uid="uid://dw0nc28itbhq7" path="res://Assets/UI/Buttons/red_button09.png" id="5_ppw0u"]
 [ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.gd" id="6"]
@@ -106,7 +107,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 12
 
-[node name="MushroomT1" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
+[node name="General" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
 material = SubResource("CanvasItemMaterial_4kyaw")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
@@ -114,7 +115,7 @@ size_flags_vertical = 0
 texture_normal = ExtResource("3")
 stretch_mode = 0
 
-[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/MushroomT1"]
+[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/General"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,6 +127,50 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_n2en3")
+expand_mode = 1
+flip_h = true
+
+[node name="Frost" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
+material = SubResource("CanvasItemMaterial_4kyaw")
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("3")
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/Frost"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 6.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_clrqj")
+expand_mode = 1
+
+[node name="Chanterelle" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
+material = SubResource("CanvasItemMaterial_4kyaw")
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("3")
+stretch_mode = 0
+
+[node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/Chanterelle"]
+modulate = Color(1, 0.0666667, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 6.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_clrqj")
 expand_mode = 1
 
 [node name="Trash" type="TextureButton" parent="UI/MarginContainer/BottomBar" groups=["build_buttons"]]
@@ -332,7 +377,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
-text = "Quit"
+text = "Quit Level"
 
 [node name="LooseScreen" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -421,7 +466,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
-text = "Quit"
+text = "Quit Level"
 
 [node name="WinScreen" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -510,7 +555,7 @@ offset_bottom = 13.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1eqnh")
-text = "Quit"
+text = "Quit Level"
 
 [connection signal="pressed" from="UI/MarginContainer/BottomBar/Trash" to="." method="_on_trash_pressed"]
 [connection signal="pressed" from="UI/MarginContainer/PlayPause" to="." method="_on_play_pause_pressed"]

@@ -36,7 +36,8 @@ var drag_tower_level = -1
 var build_mode = false
 
 var replace_mode = false
-var replace_tower_level = -1
+var replace_initial_tile
+var replace_initial_location
 
 var random
 var TWEEN_DURATION = 0.25
@@ -121,7 +122,10 @@ func _set_wallet_label(value: int):
 
 
 func _set_wallet(value):
-	wallet = value
+	if wallet > 0 and value > wallet:
+		SoundPlayer.play("coins", -30, 0.1)
+
+	wallet = max(value, 0)
 
 	if wallet_label_set_tween:
 		wallet_label_set_tween.kill()
@@ -159,7 +163,9 @@ func add_tower(tower_data, tower_tile, tower_position):
 
 	map_towers_node.add_child(tower, true)
 	map_towers_set[str(tower_tile)] = tower
-	
+
+	SoundPlayer.play("jump_1", -16.0)
+
 	return tower
 
 
@@ -179,7 +185,8 @@ func update_tower_preview():
 			map_tower_exclusion_node.get_cell_tile_data(0, drag_exclusion_tile) == null and
 			(
 				not map_towers_set.has(str(drag_tile)) or
-				map_towers_set.get(str(drag_tile)).level == 1
+				map_towers_set.get(str(drag_tile)).level == 1 and
+				map_towers_set.get(str(drag_tile)).data.path == drag_tower.data.path
 			)
 		)
 
@@ -187,9 +194,10 @@ func update_tower_preview():
 		drag_valid = (
 			map_tower_exclusion_node.get_cell_tile_data(0, drag_exclusion_tile) == null and
 			(
-				not map_towers_set.has(str(drag_tile)) or 
+				not map_towers_set.has(str(drag_tile)) or
 				not map_towers_set.get(str(drag_tile)).max_level_reached and
-				map_towers_set.get(str(drag_tile)).level == drag_tower_level
+				map_towers_set.get(str(drag_tile)).level == drag_tower_level and
+				map_towers_set.get(str(drag_tile)).data.path == drag_tower.data.path
 			)
 		)
 
@@ -208,6 +216,7 @@ func set_tower_preview(tower_data, tower_level = 1):
 
 	drag_tower_range_texture = Sprite2D.new()
 	var range_scale = tower_data.levels[drag_tower_level - 1].range / 620.0
+	var level_size_scale = 1.0 + (tower_level - 1) * 0.1
 	drag_tower_range_texture.scale = Vector2(range_scale, range_scale)
 	drag_tower_range_texture.texture = load("res://Assets/UI/range_overlay.png")
 	drag_tower_range_texture.modulate = color_valid
@@ -221,6 +230,10 @@ func set_tower_preview(tower_data, tower_level = 1):
 
 	ui.add_child(drag_control, true)
 	ui.move_child(drag_control, 0)
+
+	drag_tower.level = drag_tower_level
+	drag_tower_range_texture.scale.x *= drag_tower.scale.x
+	drag_tower_range_texture.scale.y *= drag_tower.scale.y
 
 
 func cancel_drag():
@@ -264,6 +277,8 @@ func try_init_replace_mode():
 func init_replace_mode(tower, tower_tile):
 	cancel()
 	replace_mode = true
+	replace_initial_tile = tower_tile
+	replace_initial_location = map_towers_node.map_to_local(replace_initial_tile) - Vector2(16, 16)
 	trash_button.visible = true
 	set_tower_preview(tower.data, tower.level)
 	drag_tower.level = drag_tower_level
@@ -281,12 +296,20 @@ func verify_and_replace():
 		var tower = add_tower(drag_data, drag_tile, drag_location)
 		tower.level = drag_tower_level
 
-	cancel_replace()
+	cancel_replace(true)
 
 
-func cancel_replace():
+func cancel_replace(replaced = false):
+	if not replaced:
+		var tower = add_tower(drag_data, replace_initial_tile, replace_initial_location)
+		tower.level = drag_tower_level
+
 	replace_mode = false
+	replace_initial_tile = null
+	replace_initial_location = null
+
 	trash_button.visible = false
+
 	cancel_drag()
 
 
@@ -300,7 +323,7 @@ func cancel():
 
 func make_enemy(enemy_type):
 	var enemy_data = GameData.enemies[enemy_type]
-	var enemy = load("res://Scenes/Enemies/" + enemy_type + ".tscn").instantiate()
+	var enemy = load(enemy_data.path).instantiate()
 	enemy.hp = enemy_data["hp"]
 	enemy.speed = enemy_data["speed"]
 	enemy.damage = enemy_data["damage"]
@@ -337,8 +360,8 @@ func _on_enemy_dies(enemy):
 
 		wallet += bounty
 
-	await sleep(5.0)
 	if enemies_spawned == enemies_died and waves_finished:
+		await sleep(2.0)
 		on_won()
 
 
@@ -373,6 +396,8 @@ func on_won():
 	if map_status != "in_process":
 		return
 
+	SoundPlayer.play("success", 0.0, 0.0, false)
+
 	map_status = "won"
 	set_pause(false)
 	get_tree().paused = true
@@ -384,6 +409,8 @@ func on_won():
 func on_loose():
 	if map_status != "in_process":
 		return
+
+	SoundPlayer.play("loose", -8.0, 0.0, false)
 
 	map_status = "loose"
 	set_pause(false)
@@ -426,26 +453,32 @@ func _on_base_body_entered(enemy_body):
 
 
 func _on_try_again_pressed():
+	SoundPlayer.play("click", -15)
 	restart_map()
 
 
 func _on_next_pressed():
+	SoundPlayer.play("click", -15)
 	go_next_map()
 
 
 func _on_restart_pressed():
+	SoundPlayer.play("click", -15)
 	restart_map()
 
 
 func _on_continue_pressed():
+	SoundPlayer.play("click", -15)
 	set_pause(false)
 
 
 func _on_play_pause_pressed():
+	SoundPlayer.play("click", -15)
 	toggle_pause()
 
 
 func _on_quit_pressed():
+	SoundPlayer.play("click", -15)
 	get_tree().paused = false
 	quit_map()
 
@@ -453,7 +486,7 @@ func _on_quit_pressed():
 func _on_trash_pressed():
 	if replace_mode:
 		wallet += drag_data.price * 2**(drag_tower_level - 1) * GameData.SELL_COEF
-		cancel_replace()
+		cancel_replace(true)
 
 
 func _process(delta):

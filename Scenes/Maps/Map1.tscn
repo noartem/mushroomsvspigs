@@ -745,10 +745,10 @@ format = 2
 [node name="Path1" type="Path2D" parent="." groups=["paths"]]
 curve = SubResource("Curve2D_6sg0l")
 
-[node name="Path2" type="Path2D" parent="." groups=["paths"]]
+[node name="Path2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_00gr4")
 
-[node name="Path3" type="Path2D" parent="." groups=["paths"]]
+[node name="Path3" type="Path2D" parent="."]
 curve = SubResource("Curve2D_gmpvv")
 
 [node name="Base" type="Area2D" parent="."]

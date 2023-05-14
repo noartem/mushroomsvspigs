@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://qwfjib1clf1u"]
+
+[ext_resource type="Script" path="res://Scenes/Projectile/Boulder.gd" id="1_nqxw4"]
+[ext_resource type="Texture2D" uid="uid://dgyww1mgo72sg" path="res://Assets/Effects/boulder.png" id="2_kafsd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cf7go"]
+radius = 8.0
+
+[node name="Boulder" type="Node2D"]
+script = ExtResource("1_nqxw4")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 34.0
+offset_bottom = 34.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_kafsd")
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-2, 1)
+scale = Vector2(0.421875, 0.421875)
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_cf7go")
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]

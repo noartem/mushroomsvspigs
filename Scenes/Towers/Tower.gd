@@ -1,10 +1,8 @@
 extends Node2D
 
 
-@onready var animation_player = get_node("AnimationPlayer")
 @onready var range_shape = get_node("Range/CollisionShape2D").get_shape()
 @onready var base = get_node("Base")
-@onready var rotated = get_node("Rotated")
 
 var color_default = Color(1, 1, 1, 1)
 var silver_color = Color("87c0f0")
@@ -17,7 +15,7 @@ var data
 var built = false
 
 var enemies = []
-var enemy = null
+var enemy: Node2D = null
 
 var fire_ready = true
 
@@ -27,6 +25,7 @@ var max_level_reached = false
 var range = -1 : set = _set_range
 var damage = -1.0
 var rof = -1.0
+var effects = []
 var size_scale = -1.0 : set = _set_size_scale
 
 var inital_position
@@ -39,16 +38,15 @@ func _set_level(value):
 	modulate = levels_colors[level - 1]
 	size_scale = 1.0 + (level - 1) * 0.1
 
-	apply_stats(data.levels[level - 1])
+	for level_data in data.levels.slice(0, level):
+		apply_stats(level_data)
 
 
 func _set_range(value):
 	range = value
 
 	if range_shape:
-		print("range_shape.radius = ", range_shape.radius)
 		range_shape.radius = 0.5 * range
-		print("range_shape.radius = ", range_shape.radius)
 
 
 func _set_size_scale(value):
@@ -65,18 +63,32 @@ func select_enemy():
 		enemy = enemies[0]
 
 
+func shoot_projectile():
+	var projectile: Node2D = load(data.attack.path).instantiate()
+
+	projectile.hit = {"damage": damage, "effects": effects}
+	projectile.direction = global_position.direction_to(enemy.global_position)
+
+	add_child(projectile)
+
+	projectile.start()
+
+
+func attack():
+	if data.attack.type == "projectile":
+		shoot_projectile()
+
+
 func fire():
 	fire_ready = false
 
-	animation_player.play("Fire")
+	attack()
 
-	enemy.on_hit(damage)
 	await get_tree().create_timer(rof).timeout
 	fire_ready = true
 
 
 func turn():
-	rotated.look_at(enemy.position)
 	base.set_flip_h(base.global_position.x > enemy.global_position.x)
 
 
@@ -84,9 +96,11 @@ func apply_stats(stats):
 	range = stats.get("range", range)
 	damage = stats.get("damage", damage)
 	rof = stats.get("rof", rof)
+	effects = stats.get("effects", effects)
 
 
 func level_up():
+	SoundPlayer.play("jump_2", -10 + level * 2)
 	level += 1
 
 
@@ -103,7 +117,6 @@ func _physics_process(delta):
 		enemy = null
 	else:
 		select_enemy()
-		if not animation_player.is_playing(): turn()
 		if fire_ready: fire()
 
 

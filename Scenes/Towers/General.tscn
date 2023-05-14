@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://co7pkie31vcq1"]
+
+[ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="1_najvi"]
+[ext_resource type="Texture2D" uid="uid://cmitd8xbhc5p8" path="res://Assets/Towers/red-shroom-idle.png" id="2_jpa13"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7im5"]
+atlas = ExtResource("2_jpa13")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17bxg"]
+atlas = ExtResource("2_jpa13")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4q82n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7im5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17bxg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 175.0
+
+[node name="General" type="Node2D"]
+script = ExtResource("1_najvi")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+process_mode = 4
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4q82n")
+speed_scale = 4.0
+flip_h = true
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("1")
+
+[connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
+[connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://2srohfihwlo1"]
+
+[ext_resource type="Script" path="res://Scenes/Projectile/Projectile.gd" id="1_eom0j"]
+[ext_resource type="Texture2D" uid="uid://eklb0b442fe3" path="res://Assets/Effects/fireball/FB001.png" id="2_eyfjs"]
+[ext_resource type="Texture2D" uid="uid://cq21i7thpl23c" path="res://Assets/Effects/fireball/FB002.png" id="3_132rf"]
+[ext_resource type="Texture2D" uid="uid://js72acwc4ywm" path="res://Assets/Effects/fireball/FB003.png" id="4_rd1ia"]
+[ext_resource type="Texture2D" uid="uid://dv1k1svgwav46" path="res://Assets/Effects/fireball/FB004.png" id="5_u6btg"]
+[ext_resource type="Texture2D" uid="uid://07ds8rjq451a" path="res://Assets/Effects/fireball/FB005.png" id="6_pyjqt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mswdx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eyfjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_132rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_rd1ia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_u6btg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_pyjqt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cf7go"]
+radius = 8.0
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_eom0j")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 1)
+scale = Vector2(0.421875, 0.421875)
+sprite_frames = SubResource("SpriteFrames_mswdx")
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_cf7go")
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]

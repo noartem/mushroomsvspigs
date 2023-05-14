@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqk28g2gc1wic"]
+
+[ext_resource type="Script" path="res://Scenes/Projectile/Projectile.gd" id="1_i6ogc"]
+[ext_resource type="Texture2D" uid="uid://vxbgpqhvtjaj" path="res://Assets/Effects/frost-shard.png" id="2_ar7ym"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cf7go"]
+radius = 8.0
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_i6ogc")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Base" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-2, 1)
+scale = Vector2(0.421875, 0.421875)
+
+[node name="Image" type="TextureRect" parent="."]
+offset_left = -12.0
+offset_top = -13.0
+offset_right = 500.0
+offset_bottom = 499.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_ar7ym")
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_cf7go")
+
+[connection signal="body_entered" from="Range" to="." method="_on_range_body_entered"]

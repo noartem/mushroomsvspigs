@@ -45,11 +45,14 @@ func back_to_main_menu():
 
 
 func _on_new_game_pressed():
+	SoundPlayer.play("click", -15)
 	main_menu.hide()
 	start_map()
 
 
 func _on_quit_pressed():
+	SoundPlayer.play("click", -15)
+	await get_tree().create_timer(0.5).timeout
 	get_tree().quit()
 
 
