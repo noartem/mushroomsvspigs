@@ -3,7 +3,7 @@ extends Node2D
 
 var map_i = 0
 var map_status = "in_process"
-var map_data
+var map_data : set = _set_map_data
 
 var wallet = 0 : set = _set_wallet
 var base_hp = 0 : set = _set_base_hp
@@ -12,7 +12,8 @@ var waves_progress = 0 : set = _set_waves_progress
 var waves_count = 0
 var wave_i = 0
 var waves_finished = false
-var enemies_spawned = 0
+var enemies_all_count = 0
+var enemies_spawned = 0 : set = _set_enemies_spawned
 var enemies_died = 0
 
 var map_node
@@ -122,8 +123,8 @@ func _set_wallet_label(value: int):
 
 
 func _set_wallet(value):
-	if wallet > 0 and value > wallet:
-		SoundPlayer.play("coins", -30, 0.1)
+	#if wallet > 0 and value > wallet:
+	#	SoundPlayer.play("coins", -30, 0.1)
 
 	wallet = max(value, 0)
 
@@ -147,6 +148,7 @@ func _set_base_hp(value):
 
 
 func _set_waves_progress(value):
+	print("_set_waves_progress = ", value)
 	waves_progress = value
 
 	if waves_bar_set_tween:
@@ -154,6 +156,28 @@ func _set_waves_progress(value):
 
 	waves_bar_set_tween = get_tree().create_tween()
 	waves_bar_set_tween.tween_property(waves_bar, "value", value, TWEEN_DURATION)
+
+
+func get_enemies_all_count():
+	var count = 0
+	for wave in map_data.waves:
+		for wave_part in wave.receipe:
+			count += wave_part.count
+	return count
+
+
+func _set_map_data(value):
+	map_data = value
+
+	enemies_all_count = get_enemies_all_count()
+	enemies_spawned = 0
+	enemies_died = 0
+
+
+func _set_enemies_spawned(value):
+	enemies_spawned = value
+
+	waves_progress = (float(enemies_spawned) / float(enemies_all_count)) * 100
 
 
 func add_tower(tower_data, tower_tile, tower_position):
@@ -237,6 +261,9 @@ func set_tower_preview(tower_data, tower_level = 1):
 
 
 func cancel_drag():
+	if not drag_control:
+		return
+
 	drag_control.free()
 	drag_tower = null
 	drag_control = null
@@ -365,6 +392,11 @@ func _on_enemy_dies(enemy):
 		on_won()
 
 
+func wait_paused():
+	while get_tree().is_paused():
+		await sleep(0.5)
+
+
 func spawn_waves():
 	for wave in map_data.waves:
 		await sleep(map_data.waves_delay)
@@ -374,11 +406,12 @@ func spawn_waves():
 
 		for wave_part in wave.receipe:
 			for enemy_i in wave_part.count:
+				await wait_paused()
+
 				var enemy = make_enemy(wave_part.type)
-				spawn_enemy(enemy)
 				enemy.dies.connect(_on_enemy_dies)
 
-				waves_progress = wave_i + (enemy_i + 1.0) * wave_parts_count / wave_part.count
+				spawn_enemy(enemy)
 
 				var enemy_delay_min = wave.get("enemy_delay_min", 0.0)
 				var enemy_delay_max = wave.get("enemy_delay_max", 1.0)
@@ -420,9 +453,22 @@ func on_loose():
 
 
 func init_build_mode(tower_data):
+	if drag_data:
+		return
+
 	cancel()
 	build_mode = true
 	set_tower_preview(tower_data)
+
+
+func finish_build_mode():
+	if build_mode:
+		verify_and_build()
+		return
+
+	if replace_mode:
+		verify_and_replace()
+		return
 
 
 func init_build_buttons():
@@ -433,7 +479,9 @@ func init_build_buttons():
 		var tower_data = GameData.towers[tower_type]
 		var button = build_bar.get_node(tower_type)
 		button.show()
-		button.pressed.connect(init_build_mode.bind(tower_data))
+
+		button.button_down.connect(init_build_mode.bind(tower_data))
+		button.button_up.connect(finish_build_mode)
 
 	update_available_towers()
 
@@ -494,26 +542,40 @@ func _process(delta):
 		update_tower_preview()
 
 
+var init_at = 0
+
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel"):
 		cancel()
 		return
 
-	if build_mode and event.is_action_released("ui_accept"):
-		verify_and_build()
-		return
-
-	if not build_mode and not replace_mode and event.is_action_released("ui_accept"):
-		try_init_replace_mode()
-		return
-
-	if replace_mode and event.is_action_released("ui_accept"):
-		verify_and_replace()
-		return
-
 	if event.is_action_released("key_exit"):
 		set_pause(true)
 		return
+	
+	if event.is_action("ui_accept"):
+		if event.is_pressed():
+			if build_mode:
+				verify_and_build()
+				return
+
+			if replace_mode:
+				verify_and_replace()
+				return
+
+			if not build_mode and not replace_mode:
+				try_init_replace_mode()
+				init_at = Time.get_ticks_msec()
+				return
+		else:
+			if Time.get_ticks_msec() - init_at > 100:
+				if build_mode:
+					verify_and_build()
+					return
+
+				if replace_mode:
+					verify_and_replace()
+					return
 
 
 func _ready():
@@ -541,8 +603,7 @@ func _ready():
 	map_base_node.body_entered.connect(_on_base_body_entered)
 
 	waves_bar.value = 0
-	
-	waves_bar.max_value = waves_count
+	waves_bar.max_value = 100.0
 	waves_progress = 0
 
 	init_build_buttons()

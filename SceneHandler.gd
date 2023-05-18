@@ -5,12 +5,12 @@ var map
 var map_i = 0
 
 @onready var main_menu = $MainMenu
-@onready var new_game_button = main_menu.get_node("Margin/ButtonsBox/NewGame")
-@onready var quit_button = main_menu.get_node("Margin/ButtonsBox/Quit")
+@onready var new_game_button = $MainMenu/Margin/ButtonsBox/NewGame
+@onready var quit_button = $MainMenu/Margin/ButtonsBox/Quit
 
 
 func start_map():
-	map = load("res://Scenes/MainScenes/GameScene.tscn").instantiate()
+	map = load("res://Scenes/GameScene/GameScene.tscn").instantiate()
 	map.map_i = map_i
 	add_child(map)
 	move_child(map, 0)

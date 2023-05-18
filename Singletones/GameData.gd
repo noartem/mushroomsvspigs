@@ -16,18 +16,18 @@ var towers = {
 			},
 			{
 				"range": 400.0,
-				"damage": 30.0,
+				"damage": 40.0,
 				"rof": 1.0,
 			},
 			{
-				"range": 400.0,
-				"damage": 30.0,
+				"range": 500.0,
+				"damage": 40.0,
 				"rof": 0.5,
 			},
 			{
-				"range": 1000.0,
-				"damage": 300.0,
-				"rof": 0.1,
+				"range": 500.0,
+				"damage": 80.0,
+				"rof": 0.4,
 			},
 		],
 		"attack": {
@@ -42,49 +42,50 @@ var towers = {
 		"size": [64, 64],
 		"levels": [
 			{
-				"range": 150.0,
-				"damage": 100.0,
+				"range": 200.0,
+				"damage": 60.0,
 				"rof": 1.0,
 				"effects": [
 					{
 						"name": "Frozen",
 						"duration": 5.0,
+						"slow_coef": 0.75,
+					},
+				],
+			},
+			{
+				"range": 200.0,
+				"damage": 100.0,
+				"rof": 0.8,
+				"effects": [
+					{
+						"name": "Frozen",
+						"duration": 5.0,
+						"slow_coef": 0.6,
+					},
+				],
+			},
+			{
+				"range": 250.0,
+				"damage": 120.0,
+				"rof": 0.8,
+				"effects": [
+					{
+						"name": "Frozen",
+						"duration": 6.0,
 						"slow_coef": 0.5,
 					},
 				],
 			},
 			{
-				"range": 200.0,
-				"damage": 200.0,
+				"range": 350.0,
+				"damage": 150.0,
+				"rof": 0.4,
 				"effects": [
 					{
 						"name": "Frozen",
-						"duration": 5.0,
+						"duration": 8.0,
 						"slow_coef": 0.4,
-					},
-				],
-			},
-			{
-				"range": 200.0,
-				"damage": 300.0,
-				"rof": 0.5,
-				"effects": [
-					{
-						"name": "Frozen",
-						"duration": 10.0,
-						"slow_coef": 0.3,
-					},
-				],
-			},
-			{
-				"range": 500.0,
-				"damage": 600.0,
-				"rof": 0.1,
-				"effects": [
-					{
-						"name": "Frozen",
-						"duration": 20.0,
-						"slow_coef": 0.1,
 					},
 				],
 			},
@@ -160,29 +161,38 @@ var towers = {
 }
 
 var enemies = {
-	"PigT1": {
+	"Pig": {
 		"path": "res://Scenes/Enemies/PigT1.tscn",
 		"speed": 150,
-		"hp": 500,
+		"hp": 300,
 		"damage": 10,
 		"bounty_min": 25,
 		"bounty_max": 50,
 	},
 	"BurningPig": {
 		"path": "res://Scenes/Enemies/PigT1.tscn",
-		"speed": 500,
-		"hp": 100,
+		"speed": 300,
+		"hp": 500,
 		"damage": 100,
 		"bounty_min": 0,
 		"bounty_max": 500,
 		"effects": [
 			{
 				"name": "Burning",
-				"damage": 100.0,
-				"duration": 5.0,
-				"wait_time": 2 / 3,
+				"duration": -1.0,
+				"damage": 10.0,
+				"wait_time": 1 / 3,
 			},
 		],
+	},
+	"BigPig": {
+		"path": "res://Scenes/Enemies/PigT1.tscn",
+		"speed": 75,
+		"hp": 1500,
+		"damage": 10,
+		"size_scale": 1.3,
+		"bounty_min": 50,
+		"bounty_max": 100,
 	},
 }
 
@@ -193,40 +203,16 @@ var effects = {
 
 var maps = [
 	{
-		"name": "Map0",
+		"name": "#0",
 		"path": "res://Scenes/Maps/Map1.tscn",
-		"waves_delay": 5.0,
-		"waves": [
-			{
-				"enemy_delay_min": 0.0,
-				"enemy_delay_max": 0.1,
-				"receipe": [
-					{
-						"type": "PigT1",
-						"count": 100,
-					},
-				]
-			},
-		],
-		"base_hp": 100,
-		"towers": [
-			"General",
-			"Frost",
-			"Chanterelle",
-		],
-		"wallet_start": 500,
-	},
-	{
-		"name": "Map1",
-		"path": "res://Scenes/Maps/Map1.tscn",
-		"waves_delay": 5.0,
+		"waves_delay": 8.0,
 		"waves": [
 			{
 				"enemy_delay_min": 1.0,
 				"enemy_delay_max": 5.0,
 				"receipe": [
 					{
-						"type": "PigT1",
+						"type": "Pig",
 						"count": 4,
 					},
 				]
@@ -236,8 +222,8 @@ var maps = [
 				"enemy_delay_max": 2.0,
 				"receipe": [
 					{
-						"type": "PigT1",
-						"count": 12,
+						"type": "Pig",
+						"count": 8,
 					},
 				]
 			},
@@ -246,7 +232,166 @@ var maps = [
 				"enemy_delay_max": 0.5,
 				"receipe": [
 					{
-						"type": "PigT1",
+						"type": "Pig",
+						"count": 14,
+					},
+					{
+						"type": "BigPig",
+						"count": 1,
+					},
+				]
+			},
+		],
+		"base_hp": 500,
+		"towers": [
+			"General",
+		],
+		"wallet_start": 150,
+	},
+	{
+		"name": "#1",
+		"path": "res://Scenes/Maps/Map1.tscn",
+		"waves_delay": 5.0,
+		"waves": [
+			{
+				"enemy_delay_min": 1.0,
+				"enemy_delay_max": 3.0,
+				"receipe": [
+					{
+						"type": "Pig",
+						"count": 8,
+					},
+				]
+			},
+			{
+				"enemy_delay_min": 0.5,
+				"enemy_delay_max": 3.0,
+				"receipe": [
+					{
+						"type": "BurningPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 32,
+					},
+				]
+			},
+			{
+				"enemy_delay_min": 0.1,
+				"enemy_delay_max": 1.0,
+				"receipe": [
+					{
+						"type": "Pig",
+						"count": 52,
+					},
+					{
+						"type": "BigPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 4,
+					},
+				]
+			},
+		],
+		"base_hp": 250,
+		"towers": [
+			"General",
+			"Frost",
+		],
+		"wallet_start": 200,
+	},
+	{
+		"name": "#2",
+		"path": "res://Scenes/Maps/Map1.tscn",
+		"waves_delay": 10.0,
+		"waves": [
+			{
+				"enemy_delay_min": 0.0,
+				"enemy_delay_max": 2.0,
+				"receipe": [
+					{
+						"type": "Pig",
+						"count": 12,
+					},
+				]
+			},
+			{
+				"enemy_delay_min": 0.1,
+				"enemy_delay_max": 1.5,
+				"receipe": [
+					{
+						"type": "BurningPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 28,
+					},
+					{
+						"type": "BurningPig",
+						"count": 4,
+					},
+				]
+			},
+			{
+				"enemy_delay_min": 0.1,
+				"enemy_delay_max": 0.5,
+				"receipe": [
+					{
+						"type": "BigPig",
+						"count": 2,
+					},
+					{
+						"type": "Pig",
+						"count": 8,
+					},
+					{
+						"type": "BigPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 64,
+					},
+				],
+			},
+			{
+				"enemy_delay_min": 0.0,
+				"enemy_delay_max": 0.2,
+				"receipe": [
+					{
+						"type": "BurningPig",
+						"count": 8,
+					},
+					{
+						"type": "Pig",
+						"count": 12,
+					},
+					{
+						"type": "BigPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 12,
+					},
+					{
+						"type": "BurningPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
+						"count": 16,
+					},
+					{
+						"type": "BigPig",
+						"count": 4,
+					},
+					{
+						"type": "Pig",
 						"count": 32,
 					},
 				]
@@ -258,6 +403,6 @@ var maps = [
 			"Frost",
 			"Chanterelle",
 		],
-		"wallet_start": 150,
-	}
+		"wallet_start": 350,
+	},
 ]

@@ -1,19 +1,19 @@
-[gd_scene load_steps=24 format=3 uid="uid://bfcted8ic63g2"]
+[gd_scene load_steps=24 format=3 uid="uid://cgo0bywveiaoe"]
 
-[ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="1"]
-[ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://d0tr2jfnybkml" path="res://Assets/Towers/frost-shroom-single.png" id="5_clrqj"]
-[ext_resource type="Texture2D" uid="uid://csdxnbnpjwviq" path="res://Assets/Towers/red-shroom-single.png" id="5_n2en3"]
-[ext_resource type="Texture2D" uid="uid://dw0nc28itbhq7" path="res://Assets/UI/Buttons/red_button09.png" id="5_ppw0u"]
-[ext_resource type="Script" path="res://Scenes/MainScenes/GameScene.gd" id="6"]
-[ext_resource type="Texture2D" uid="uid://d18lp21gvntwj" path="res://Assets/Icons/trashcanOpen.png" id="6_jqxb8"]
-[ext_resource type="Texture2D" uid="uid://s1lkb4o7y2g" path="res://Assets/Icons/right.png" id="7"]
-[ext_resource type="Texture2D" uid="uid://dedap7vhyvvor" path="res://Assets/Icons/pause.png" id="8"]
-[ext_resource type="Texture2D" uid="uid://bkmqlmy7ocfh7" path="res://Assets/UI/Buttons/blue_button03.png" id="8_g2jdo"]
-[ext_resource type="Texture2D" uid="uid://27xcdwpqbajs" path="res://Assets/UI/Buttons/blue_button05.png" id="9_tay66"]
-[ext_resource type="FontFile" uid="uid://bpln322746wyd" path="res://Assets/Fonts/Kenney Blocks.ttf" id="10_ekuug"]
-[ext_resource type="Texture2D" uid="uid://dfinilvc4arx7" path="res://Assets/UI/Buttons/red_button02.png" id="11_dhkc6"]
-[ext_resource type="Texture2D" uid="uid://d2gkuptoivqlm" path="res://Assets/UI/Buttons/red_button00.png" id="12_3fynj"]
+[ext_resource type="Script" path="res://Scenes/GameScene/GameScene.gd" id="1_s0sno"]
+[ext_resource type="PackedScene" uid="uid://cl3go1fjrt422" path="res://Scenes/Maps/Map1.tscn" id="2_3geho"]
+[ext_resource type="Texture2D" uid="uid://c7oaee1122bfo" path="res://Assets/UI/Buttons/blue_button12.png" id="3_20aqr"]
+[ext_resource type="Texture2D" uid="uid://csdxnbnpjwviq" path="res://Assets/Towers/red-shroom-single.png" id="4_5py6r"]
+[ext_resource type="Texture2D" uid="uid://d0tr2jfnybkml" path="res://Assets/Towers/frost-shroom-single.png" id="5_3sqt7"]
+[ext_resource type="Texture2D" uid="uid://dw0nc28itbhq7" path="res://Assets/UI/Buttons/red_button09.png" id="6_i5tm5"]
+[ext_resource type="Texture2D" uid="uid://d18lp21gvntwj" path="res://Assets/Icons/trashcanOpen.png" id="7_2sbkl"]
+[ext_resource type="FontFile" uid="uid://bpln322746wyd" path="res://Assets/Fonts/Kenney Blocks.ttf" id="8_n5nc6"]
+[ext_resource type="Texture2D" uid="uid://dedap7vhyvvor" path="res://Assets/Icons/pause.png" id="9_uymcs"]
+[ext_resource type="Texture2D" uid="uid://s1lkb4o7y2g" path="res://Assets/Icons/right.png" id="10_xfmqq"]
+[ext_resource type="Texture2D" uid="uid://bkmqlmy7ocfh7" path="res://Assets/UI/Buttons/blue_button03.png" id="11_fa7g5"]
+[ext_resource type="Texture2D" uid="uid://27xcdwpqbajs" path="res://Assets/UI/Buttons/blue_button05.png" id="12_3helg"]
+[ext_resource type="Texture2D" uid="uid://dfinilvc4arx7" path="res://Assets/UI/Buttons/red_button02.png" id="13_66ylo"]
+[ext_resource type="Texture2D" uid="uid://d2gkuptoivqlm" path="res://Assets/UI/Buttons/red_button00.png" id="14_43fur"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4kyaw"]
 
@@ -21,7 +21,7 @@
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
-fallbacks = Array[Font]([ExtResource("10_ekuug"), ExtResource("10_ekuug")])
+fallbacks = Array[Font]([ExtResource("8_n5nc6"), ExtResource("8_n5nc6")])
 face_index = null
 embolden = null
 transform = null
@@ -44,7 +44,7 @@ cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
 default_font = SubResource("1")
 
 [sub_resource type="LabelSettings" id="LabelSettings_cld70"]
-font = ExtResource("10_ekuug")
+font = ExtResource("8_n5nc6")
 
 [sub_resource type="LabelSettings" id="LabelSettings_uqx70"]
 line_spacing = 0.0
@@ -54,7 +54,7 @@ font_color = Color(1, 0.843137, 0, 1)
 subpixel_positioning = 0
 msdf_pixel_range = 14
 msdf_size = 128
-fallbacks = Array[Font]([ExtResource("10_ekuug"), ExtResource("10_ekuug")])
+fallbacks = Array[Font]([ExtResource("8_n5nc6"), ExtResource("8_n5nc6")])
 face_index = null
 embolden = null
 transform = null
@@ -75,9 +75,9 @@ font_size = 24
 font_size = 24
 
 [node name="GameScene" type="Node2D"]
-script = ExtResource("6")
+script = ExtResource("1_s0sno")
 
-[node name="Map" parent="." instance=ExtResource("1")]
+[node name="Map" parent="." instance=ExtResource("2_3geho")]
 position = Vector2(16, 16)
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -112,7 +112,7 @@ material = SubResource("CanvasItemMaterial_4kyaw")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("3")
+texture_normal = ExtResource("3_20aqr")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/General"]
@@ -126,7 +126,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_n2en3")
+texture = ExtResource("4_5py6r")
 expand_mode = 1
 flip_h = true
 
@@ -135,7 +135,7 @@ material = SubResource("CanvasItemMaterial_4kyaw")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("3")
+texture_normal = ExtResource("3_20aqr")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/Frost"]
@@ -148,7 +148,7 @@ offset_top = 6.0
 offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_clrqj")
+texture = ExtResource("5_3sqt7")
 expand_mode = 1
 
 [node name="Chanterelle" type="TextureButton" parent="UI/MarginContainer/BottomBar/BuildBar" groups=["build_buttons"]]
@@ -156,7 +156,7 @@ material = SubResource("CanvasItemMaterial_4kyaw")
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("3")
+texture_normal = ExtResource("3_20aqr")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/Chanterelle"]
@@ -170,7 +170,7 @@ offset_top = 6.0
 offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("5_clrqj")
+texture = ExtResource("5_3sqt7")
 expand_mode = 1
 
 [node name="Trash" type="TextureButton" parent="UI/MarginContainer/BottomBar" groups=["build_buttons"]]
@@ -179,7 +179,7 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("5_ppw0u")
+texture_normal = ExtResource("6_i5tm5")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/Trash"]
@@ -193,7 +193,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_jqxb8")
+texture = ExtResource("7_2sbkl")
 expand_mode = 1
 
 [node name="Control2" type="Control" parent="UI/MarginContainer/BottomBar"]
@@ -274,8 +274,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 toggle_mode = true
-texture_normal = ExtResource("8")
-texture_pressed = ExtResource("7")
+texture_normal = ExtResource("9_uymcs")
+texture_pressed = ExtResource("10_xfmqq")
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -306,8 +306,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_normal = ExtResource("8_g2jdo")
-texture_pressed = ExtResource("9_tay66")
+texture_normal = ExtResource("11_fa7g5")
+texture_pressed = ExtResource("12_3helg")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="PauseScreen/HBoxContainer/VBoxContainer/Continue"]
@@ -331,8 +331,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("9_tay66")
-texture_pressed = ExtResource("8_g2jdo")
+texture_normal = ExtResource("12_3helg")
+texture_pressed = ExtResource("11_fa7g5")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="PauseScreen/HBoxContainer/VBoxContainer/Restart"]
@@ -359,8 +359,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 0
-texture_normal = ExtResource("11_dhkc6")
-texture_pressed = ExtResource("12_3fynj")
+texture_normal = ExtResource("13_66ylo")
+texture_pressed = ExtResource("14_43fur")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="PauseScreen/HBoxContainer/VBoxContainer/Quit"]
@@ -419,8 +419,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("9_tay66")
-texture_pressed = ExtResource("8_g2jdo")
+texture_normal = ExtResource("12_3helg")
+texture_pressed = ExtResource("11_fa7g5")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="LooseScreen/HBoxContainer/VBoxContainer/TryAgain"]
@@ -448,8 +448,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("11_dhkc6")
-texture_pressed = ExtResource("12_3fynj")
+texture_normal = ExtResource("13_66ylo")
+texture_pressed = ExtResource("14_43fur")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="LooseScreen/HBoxContainer/VBoxContainer/Quit"]
@@ -508,8 +508,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("9_tay66")
-texture_pressed = ExtResource("8_g2jdo")
+texture_normal = ExtResource("12_3helg")
+texture_pressed = ExtResource("11_fa7g5")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="WinScreen/HBoxContainer/VBoxContainer/Next"]
@@ -537,8 +537,8 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture_normal = ExtResource("11_dhkc6")
-texture_pressed = ExtResource("12_3fynj")
+texture_normal = ExtResource("13_66ylo")
+texture_pressed = ExtResource("14_43fur")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="WinScreen/HBoxContainer/VBoxContainer/Quit"]

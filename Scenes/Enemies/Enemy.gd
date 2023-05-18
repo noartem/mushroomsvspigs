@@ -95,5 +95,9 @@ func _ready():
 	health_bar.max_value = hp
 	health_bar.value = hp
 	health_bar.set_as_top_level(true)
+	
+	var size_scale = data.get("size_scale", 1.0)
+	scale.x *= size_scale
+	scale.y *= size_scale
 
 	add_effects(data.get("effects", []))
