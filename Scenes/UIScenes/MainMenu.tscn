@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7c0oeusngjje"]
+[gd_scene load_steps=11 format=3 uid="uid://7c0oeusngjje"]
 
 [ext_resource type="Texture2D" uid="uid://bkfaot7icuyoo" path="res://Assets/UI/Art/main_menu_background.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bkmqlmy7ocfh7" path="res://Assets/UI/Buttons/blue_button03.png" id="2"]
@@ -21,9 +21,113 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
+cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
+cache/0/48/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/48/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/42/0/ascent = 0.0
+cache/0/42/0/descent = 0.0
+cache/0/42/0/underline_position = 0.0
+cache/0/42/0/underline_thickness = 0.0
+cache/0/42/0/scale = 1.0
+cache/0/42/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/42/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/36/0/ascent = 0.0
+cache/0/36/0/descent = 0.0
+cache/0/36/0/underline_position = 0.0
+cache/0/36/0/underline_thickness = 0.0
+cache/0/36/0/scale = 1.0
+cache/0/36/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/36/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/28/0/ascent = 0.0
+cache/0/28/0/descent = 0.0
+cache/0/28/0/underline_position = 0.0
+cache/0/28/0/underline_thickness = 0.0
+cache/0/28/0/scale = 1.0
+cache/0/28/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/28/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/48/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/42/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/36/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/28/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
 
 [sub_resource type="Theme" id="2"]
 default_font = SubResource("FontFile_1x82w")
+
+[sub_resource type="LabelSettings" id="LabelSettings_dui5g"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_mtn8x"]
+font_size = 28
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -54,13 +158,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ButtonsBox" type="VBoxContainer" parent="Margin"]
-custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 
 [node name="NewGame" type="TextureButton" parent="Margin/ButtonsBox"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(240, 88)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -75,14 +179,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -95.0
-offset_top = -22.5
-offset_right = 95.0
-offset_bottom = 22.5
+offset_left = -108.0
+offset_top = -28.5
+offset_right = 108.0
+offset_bottom = 28.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("2")
 text = "New Game"
+label_settings = SubResource("LabelSettings_dui5g")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -91,9 +196,10 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 
 [node name="Quit" type="TextureButton" parent="Margin/ButtonsBox"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(240, 88)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("5")
 texture_pressed = ExtResource("6")
 stretch_mode = 0
@@ -113,3 +219,4 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("2")
 text = "Quit"
+label_settings = SubResource("LabelSettings_mtn8x")

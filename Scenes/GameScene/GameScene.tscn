@@ -99,6 +99,7 @@ size_flags_vertical = 8
 theme_override_constants/separation = 24
 
 [node name="Control1" type="Control" parent="UI/MarginContainer/BottomBar"]
+process_mode = 4
 layout_mode = 2
 
 [node name="BuildBar" type="HBoxContainer" parent="UI/MarginContainer/BottomBar"]
@@ -160,7 +161,7 @@ texture_normal = ExtResource("3_20aqr")
 stretch_mode = 0
 
 [node name="Icon" type="TextureRect" parent="UI/MarginContainer/BottomBar/BuildBar/Chanterelle"]
-modulate = Color(1, 0.0666667, 0, 1)
+modulate = Color(1, 0.647059, 0, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -197,6 +198,7 @@ texture = ExtResource("7_2sbkl")
 expand_mode = 1
 
 [node name="Control2" type="Control" parent="UI/MarginContainer/BottomBar"]
+process_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -210,7 +212,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/Waves"]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
 text = "Waves"
@@ -230,7 +232,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/HP"]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
 text = "HP"
@@ -250,7 +252,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Label" type="Label" parent="UI/MarginContainer/BottomBar/VBoxContainer/Wallet"]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme = SubResource("Theme_1eqnh")
 text = "Wallet"
@@ -266,6 +268,7 @@ label_settings = SubResource("LabelSettings_uqx70")
 horizontal_alignment = 1
 
 [node name="Control3" type="Control" parent="UI/MarginContainer/BottomBar"]
+process_mode = 4
 layout_mode = 2
 
 [node name="PlayPause" type="TextureButton" parent="UI/MarginContainer"]

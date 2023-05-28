@@ -162,7 +162,7 @@ var towers = {
 
 var enemies = {
 	"Pig": {
-		"path": "res://Scenes/Enemies/PigT1.tscn",
+		"path": "res://Scenes/Enemies/Pig.tscn",
 		"speed": 150,
 		"hp": 300,
 		"damage": 10,
@@ -170,29 +170,22 @@ var enemies = {
 		"bounty_max": 50,
 	},
 	"BurningPig": {
-		"path": "res://Scenes/Enemies/PigT1.tscn",
+		"path": "res://Scenes/Enemies/BurningPig.tscn",
 		"speed": 300,
 		"hp": 500,
-		"damage": 100,
+		"damage": 15,
 		"bounty_min": 0,
 		"bounty_max": 500,
-		"effects": [
-			{
-				"name": "Burning",
-				"duration": -1.0,
-				"damage": 10.0,
-				"wait_time": 1 / 3,
-			},
-		],
 	},
 	"BigPig": {
-		"path": "res://Scenes/Enemies/PigT1.tscn",
+		"path": "res://Scenes/Enemies/Pig.tscn",
 		"speed": 75,
 		"hp": 1500,
 		"damage": 10,
 		"size_scale": 1.3,
 		"bounty_min": 50,
 		"bounty_max": 100,
+		"z_index": 1,
 	},
 }
 
@@ -247,10 +240,11 @@ var maps = [
 			"General",
 		],
 		"wallet_start": 150,
+		"soundtrack": "res://Assets/Sounds/soundtrack-battle.wav",
 	},
 	{
 		"name": "#1",
-		"path": "res://Scenes/Maps/Map1.tscn",
+		"path": "res://Scenes/Maps/Map2.tscn",
 		"waves_delay": 5.0,
 		"waves": [
 			{
@@ -302,10 +296,11 @@ var maps = [
 			"Frost",
 		],
 		"wallet_start": 200,
+		"soundtrack": "res://Assets/Sounds/soundtrack-battle.wav",
 	},
 	{
 		"name": "#2",
-		"path": "res://Scenes/Maps/Map1.tscn",
+		"path": "res://Scenes/Maps/Map2.tscn",
 		"waves_delay": 10.0,
 		"waves": [
 			{
@@ -404,5 +399,6 @@ var maps = [
 			"Chanterelle",
 		],
 		"wallet_start": 350,
+		"soundtrack": "res://Assets/Sounds/soundtrack-boss.wav",
 	},
 ]

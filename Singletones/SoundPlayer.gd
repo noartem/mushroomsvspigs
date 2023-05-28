@@ -8,13 +8,17 @@ func _on_player_finished(path: String, player: AudioStreamPlayer):
 	player.queue_free()
 
 
-func play(sound_path: String, volume_db: float = 0.0, delay: float = 0.0, pausable: bool = true):
+func play(sound_path: String, volume_db: float = 0.0, delay: float = 0.0, pausable: bool = true, loop: bool = false):
 	if not FileAccess.file_exists(sound_path):
 		sound_path = "res://Assets/Sounds/" + sound_path + ".wav"
 
+	var stream = load(sound_path)
+	if loop:
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+
 	var player = AudioStreamPlayer.new()
 	add_child(player)
-	player.stream = load(sound_path)
+	player.stream = stream
 	
 	if not pausable:
 		player.process_mode = Node.PROCESS_MODE_ALWAYS

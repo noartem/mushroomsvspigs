@@ -44,13 +44,14 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 0.0666667, 0, 1)
+modulate = Color(1, 0.647059, 0, 1)
 position = Vector2(9.53674e-07, -4.76837e-07)
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_jw376")
 speed_scale = 4.0
 
 [node name="Range" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("1")

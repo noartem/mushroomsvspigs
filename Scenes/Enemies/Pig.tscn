@@ -77,16 +77,16 @@ sprite_frames = SubResource("SpriteFrames_prfk0")
 flip_h = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = -24.0
-offset_top = -31.0
-offset_right = 24.0
-offset_bottom = -27.0
+z_index = 1
+y_sort_enabled = true
+offset_left = -30.0
+offset_top = -32.0
+offset_right = 31.0
+offset_bottom = -28.0
+size_flags_vertical = 4
 value = 50.0
 nine_patch_stretch = true
 texture_under = ExtResource("3_t7mat")
 texture_progress = ExtResource("3_t7mat")
 tint_under = Color(0.870588, 0.870588, 0.870588, 1)
 tint_progress = Color(0.14902, 0.509804, 0.403922, 1)
-
-[node name="Impact" type="Marker2D" parent="."]
-position = Vector2(-12, -12)

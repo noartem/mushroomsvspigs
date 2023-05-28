@@ -14,7 +14,10 @@ func start():
 	active = true
 	begin()
 	
-	timer = get_tree().create_timer(duration)
+	if duration > 0:
+		return
+	
+	timer = get_tree().create_timer(duration, false)
 	await timer.timeout
 
 	if active:

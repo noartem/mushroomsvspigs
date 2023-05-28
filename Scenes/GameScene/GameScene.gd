@@ -20,7 +20,7 @@ var map_node
 var map_towers_node
 var map_tower_exclusion_node
 var map_path_nodes
-var map_base_node
+var map_base_nodes
 
 var map_towers_set = {}
 
@@ -148,7 +148,6 @@ func _set_base_hp(value):
 
 
 func _set_waves_progress(value):
-	print("_set_waves_progress = ", value)
 	waves_progress = value
 
 	if waves_bar_set_tween:
@@ -187,6 +186,7 @@ func add_tower(tower_data, tower_tile, tower_position):
 
 	map_towers_node.add_child(tower, true)
 	map_towers_set[str(tower_tile)] = tower
+	tower.z_index = tower_tile.y * 3 + 3
 
 	SoundPlayer.play("jump_1", -16.0)
 
@@ -531,18 +531,28 @@ func _on_quit_pressed():
 	quit_map()
 
 
+func sell_drag_tower():
+	wallet += drag_data.price * 2**(drag_tower_level - 1) * GameData.SELL_COEF
+	cancel_replace(true)
+
+
 func _on_trash_pressed():
 	if replace_mode:
-		wallet += drag_data.price * 2**(drag_tower_level - 1) * GameData.SELL_COEF
-		cancel_replace(true)
+		sell_drag_tower()
 
 
 func _process(delta):
 	if drag_tower:
 		update_tower_preview()
 
+	for path_node in map_path_nodes:
+		for enemy in path_node.get_children():
+			var z = map_towers_node.local_to_map(enemy.global_position).y
+			enemy.z_index = z * 3 + enemy.data.get("z_index", 0)
+
 
 var init_at = 0
+
 
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel"):
@@ -568,6 +578,10 @@ func _unhandled_input(event):
 				init_at = Time.get_ticks_msec()
 				return
 		else:
+			if replace_mode and trash_button.is_hovered():
+				sell_drag_tower()
+				return
+
 			if Time.get_ticks_msec() - init_at > 100:
 				if build_mode:
 					verify_and_build()
@@ -599,8 +613,9 @@ func _ready():
 	map_tower_exclusion_node = map_node.get_node("TowerExclusion")
 	map_path_nodes = map_node.get_tree().get_nodes_in_group("paths")
 
-	map_base_node = map_node.get_node("Base")
-	map_base_node.body_entered.connect(_on_base_body_entered)
+	map_base_nodes = map_node.get_tree().get_nodes_in_group("base")
+	for map_base_node in map_base_nodes:
+		map_base_node.body_entered.connect(_on_base_body_entered)
 
 	waves_bar.value = 0
 	waves_bar.max_value = 100.0
@@ -609,5 +624,14 @@ func _ready():
 	init_build_buttons()
 
 	trash_button.visible = false
+
+	var soundtrack = load(map_data["soundtrack"])
+	soundtrack.loop_mode = AudioStreamWAV.LOOP_FORWARD
+	soundtrack.loop_end = 1400000
+	var soundtrack_player = AudioStreamPlayer.new()
+	soundtrack_player.stream = soundtrack
+	soundtrack_player.volume_db = -10
+	add_child(soundtrack_player)
+	soundtrack_player.play()
 
 	spawn_waves()
