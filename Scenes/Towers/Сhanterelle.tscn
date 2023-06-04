@@ -1,24 +1,24 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4ci8ngf1l7iv"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="1_eojbg"]
-[ext_resource type="Texture2D" uid="uid://d1nwdfjkwrqfn" path="res://Assets/Towers/frost-shroom-idle.png" id="2_njq20"]
+[ext_resource type="Texture2D" uid="uid://cbr7ikdo4cfja" path="res://Assets/Towers/chanterelle.png" id="2_eifpk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1col"]
-atlas = ExtResource("2_njq20")
+[sub_resource type="AtlasTexture" id="AtlasTexture_oibfo"]
+atlas = ExtResource("2_eifpk")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ef2dy"]
-atlas = ExtResource("2_njq20")
+[sub_resource type="AtlasTexture" id="AtlasTexture_20mvu"]
+atlas = ExtResource("2_eifpk")
 region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jw376"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x1col")
+"texture": SubResource("AtlasTexture_oibfo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ef2dy")
+"texture": SubResource("AtlasTexture_20mvu")
 }],
 "loop": true,
 "name": &"default",
@@ -44,10 +44,10 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Base" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 0.647059, 0, 1)
-position = Vector2(9.53674e-07, -4.76837e-07)
-scale = Vector2(1.25, 1.25)
+position = Vector2(1, -2)
+scale = Vector2(1.23438, 1.23438)
 sprite_frames = SubResource("SpriteFrames_jw376")
+frame_progress = 0.529411
 speed_scale = 4.0
 
 [node name="Range" type="Area2D" parent="."]

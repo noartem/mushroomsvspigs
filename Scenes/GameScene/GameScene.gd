@@ -627,7 +627,7 @@ func _ready():
 
 	var soundtrack = load(map_data["soundtrack"])
 	soundtrack.loop_mode = AudioStreamWAV.LOOP_FORWARD
-	soundtrack.loop_end = 1400000
+	soundtrack.loop_end = 1800000
 	var soundtrack_player = AudioStreamPlayer.new()
 	soundtrack_player.stream = soundtrack
 	soundtrack_player.volume_db = -10

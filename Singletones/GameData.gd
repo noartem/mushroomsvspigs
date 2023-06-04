@@ -178,7 +178,7 @@ var enemies = {
 		"bounty_max": 500,
 	},
 	"BigPig": {
-		"path": "res://Scenes/Enemies/Pig.tscn",
+		"path": "res://Scenes/Enemies/BigPig.tscn",
 		"speed": 75,
 		"hp": 1500,
 		"damage": 10,

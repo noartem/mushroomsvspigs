@@ -9,6 +9,3 @@ func add_effects(_effects):
 
 func _ready():
 	super._ready()
-	$Flame.play()
-	$Flame2.play()
-	$Flame3.play()
